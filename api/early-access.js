@@ -111,7 +111,8 @@ module.exports = async (req, res) => {
   }
 
   const to = process.env.EMAIL_TO || "contact@scouthook.com";
-  const from = process.env.RESEND_FROM || "Scouthook <onboarding@resend.dev>";
+  const from =
+    process.env.RESEND_FROM || "Scouthook <noreply@send.scouthook.com>";
 
   const html = `
 <p><strong>Name</strong><br>${escapeHtml(name)}</p>
@@ -155,14 +156,14 @@ module.exports = async (req, res) => {
 
       if (detail.includes("only send") && detail.includes("email")) {
         userMessage =
-          "Resend is in test mode: you can only send to your own verified address. In Vercel, set EMAIL_TO to the same email you use in Resend, or verify scouthook.com in Resend and use a From address on that domain.";
+          "Resend is in test mode: you can only send to your own verified address. In Vercel, set EMAIL_TO to the same email you use in Resend, or verify send.scouthook.com in Resend and use a From address on that domain.";
       } else if (
         detail.includes("domain") ||
         detail.includes("verify") ||
         detail.includes("not verified")
       ) {
         userMessage =
-          "Email sender domain is not verified in Resend. Verify scouthook.com (or use Resend’s test sender onboarding@resend.dev) in the Resend dashboard.";
+          "Email sender domain is not verified in Resend. Finish DNS for send.scouthook.com in Resend, or set RESEND_FROM to Resend’s test sender onboarding@resend.dev while testing.";
       } else if (r.status === 401 || r.status === 403) {
         userMessage =
           "Invalid or unauthorized Resend API key. Check RESEND_API_KEY in Vercel environment variables.";
