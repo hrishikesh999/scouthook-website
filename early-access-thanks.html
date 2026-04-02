@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>You’re in — Scouthook early access</title>
+    <meta name="description" content="You’re signed up for Scouthook early access." />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="/"><img src="/images/logo-light.png" alt="Scouthook" /></a>
+        <div class="site-header__actions">
+          <a class="nav-cta" href="/early-access">Get early access →</a>
+          <a class="nav-cta" href="https://app.scouthook.com">Open app →</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="thanks-main">
+      <div class="wrap thanks-wrap">
+        <div class="thanks-hero" aria-hidden="true">
+          <div class="thanks-confetti-icon">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="thanks-confetti-svg">
+              <rect class="thanks-bit thanks-bit--1" x="58" y="8" width="8" height="14" rx="2" transform="rotate(15 62 15)" fill="#0FA87F" />
+              <rect class="thanks-bit thanks-bit--2" x="22" y="42" width="10" height="10" rx="2" transform="rotate(-20 27 47)" fill="#F0F4FF" />
+              <rect class="thanks-bit thanks-bit--3" x="88" y="38" width="7" height="12" rx="2" transform="rotate(35 91 44)" fill="#0D7A5F" />
+              <circle class="thanks-bit thanks-bit--4" cx="95" cy="72" r="6" fill="#8A9CC0" />
+              <circle class="thanks-bit thanks-bit--5" cx="28" cy="78" r="5" fill="#0FA87F" />
+              <path
+                class="thanks-cone"
+                d="M52 108 L60 52 L68 108 Z"
+                fill="url(#coneGrad)"
+              />
+              <path
+                class="thanks-burst"
+                d="M60 52 C45 38 32 28 18 22 M60 52 C52 32 48 18 46 8 M60 52 C72 36 88 26 102 20 M60 52 C58 34 62 20 68 10"
+                stroke="url(#burstGrad)"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+              <defs>
+                <linearGradient id="coneGrad" x1="52" y1="52" x2="68" y2="108" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#0D7A5F" />
+                  <stop offset="1" stop-color="#162040" />
+                </linearGradient>
+                <linearGradient id="burstGrad" x1="18" y1="8" x2="102" y2="52" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#0FA87F" />
+                  <stop offset="1" stop-color="#F0F4FF" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <h1 class="thanks-title">Congratulations, you are signed up for early access.</h1>
+        <p class="thanks-lead">We’ll let you know once we open the doors.</p>
+        <p class="thanks-actions">
+          <a class="btn" href="/">Back to home</a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>© 2025 Scouthook</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/privacy">Privacy Policy</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="https://app.scouthook.com">Open app</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script>
+      (function () {
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || typeof confetti !== "function") return;
+
+        var colors = ["#0D7A5F", "#0FA87F", "#F0F4FF", "#8A9CC0", "#162040"];
+
+        function burst(originY) {
+          confetti({
+            particleCount: 90,
+            spread: 75,
+            origin: { y: originY },
+            colors: colors,
+            ticks: 220,
+            gravity: 1.05,
+            scalar: 0.95,
+          });
+        }
+
+        burst(0.58);
+        setTimeout(function () {
+          burst(0.52);
+        }, 320);
+        setTimeout(function () {
+          confetti({
+            particleCount: 45,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.65 },
+            colors: colors,
+          });
+          confetti({
+            particleCount: 45,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.65 },
+            colors: colors,
+          });
+        }, 600);
+      })();
+    </script>
+  </body>
+</html>

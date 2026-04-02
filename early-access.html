@@ -119,8 +119,8 @@
             });
 
             if (res.ok && data.ok) {
-              form.reset();
-              setStatus("Thanks — we received your request and will be in touch soon.", false);
+              window.location.href = "/early-access/thanks";
+              return;
             } else {
               setStatus(data.error || "Something went wrong. Please try again.", true);
             }

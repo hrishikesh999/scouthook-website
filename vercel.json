@@ -4,6 +4,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/early-access", "destination": "/early-access.html" }
+    { "source": "/early-access", "destination": "/early-access.html" },
+    { "source": "/early-access/thanks", "destination": "/early-access-thanks.html" }
   ]
 }
