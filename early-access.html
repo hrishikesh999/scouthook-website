@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get early access — Scouthook</title>
+    <meta
+      name="description"
+      content="Request early access to Scouthook: voice-matched LinkedIn content for founders and consultants."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="/"><img src="/images/logo-light.png" alt="Scouthook" /></a>
+        <div class="site-header__actions">
+          <a class="nav-cta" href="/early-access">Get early access →</a>
+          <a class="nav-cta" href="https://app.scouthook.com">Open app →</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="early-access-main">
+      <div class="wrap">
+        <h1>Get early access</h1>
+        <p class="early-access-lead">
+          Tell us who you are and we’ll follow up. All fields are required.
+        </p>
+
+        <form class="early-access-form" id="early-access-form" novalidate>
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" maxlength="200" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required autocomplete="email" maxlength="254" />
+          </div>
+          <div class="form-field">
+            <label for="linkedinUrl">LinkedIn profile URL</label>
+            <input
+              type="url"
+              id="linkedinUrl"
+              name="linkedinUrl"
+              required
+              autocomplete="url"
+              placeholder="https://www.linkedin.com/in/your-profile"
+              maxlength="500"
+            />
+          </div>
+          <p class="form-hint">Use your personal or company profile link on LinkedIn (must include <code>/in/</code>, <code>/company/</code>, or similar).</p>
+          <div class="form-actions">
+            <button type="submit" class="btn" id="submit-btn">Submit request</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>© 2025 Scouthook</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/privacy">Privacy Policy</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="https://app.scouthook.com">Open app</a>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var form = document.getElementById("early-access-form");
+        var statusEl = document.getElementById("form-status");
+        var submitBtn = document.getElementById("submit-btn");
+
+        function setStatus(msg, isError) {
+          statusEl.textContent = msg || "";
+          statusEl.classList.toggle("form-status--error", !!isError);
+        }
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          setStatus("");
+
+          var name = document.getElementById("name").value.trim();
+          var email = document.getElementById("email").value.trim();
+          var linkedinUrl = document.getElementById("linkedinUrl").value.trim();
+          if (linkedinUrl && !/^https?:\/\//i.test(linkedinUrl)) {
+            linkedinUrl = "https://" + linkedinUrl;
+          }
+
+          if (!name) {
+            setStatus("Please enter your name.", true);
+            return;
+          }
+          if (!email) {
+            setStatus("Please enter your email address.", true);
+            return;
+          }
+          if (!linkedinUrl) {
+            setStatus("Please enter your LinkedIn profile URL.", true);
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
+
+          try {
+            var res = await fetch("/api/early-access", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name: name, email: email, linkedinUrl: linkedinUrl }),
+            });
+            var data = await res.json().catch(function () {
+              return {};
+            });
+
+            if (res.ok && data.ok) {
+              form.reset();
+              setStatus("Thanks — we received your request and will be in touch soon.", false);
+            } else {
+              setStatus(data.error || "Something went wrong. Please try again.", true);
+            }
+          } catch (err) {
+            setStatus("Network error. Please check your connection and try again.", true);
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit request";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -2,5 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "cleanUrls": true,
-  "rewrites": [{ "source": "/privacy", "destination": "/privacy.html" }]
+  "rewrites": [
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/early-access", "destination": "/early-access.html" }
+  ]
 }
