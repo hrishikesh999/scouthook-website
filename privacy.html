@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Scouthook</title>
+    <meta name="description" content="Scouthook privacy policy: data collection, LinkedIn use, security, and your rights." />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="/">Scouthook</a>
+        <a class="nav-cta" href="https://app.scouthook.com">Open app →</a>
+      </div>
+    </header>
+
+    <main class="privacy-main">
+      <article class="wrap">
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: April 3, 2026</p>
+
+        <h2>1. Introduction</h2>
+        <p>
+          <strong>Scouthook</strong> (“we,” “us,” or “our”) helps you create LinkedIn content that matches your voice. The Scouthook application may connect to LinkedIn on your behalf so you can publish content when you choose. This Privacy Policy describes how we collect, use, store, and protect your information.
+        </p>
+        <p>
+          If you have questions about this policy or your data, contact us at
+          <a href="mailto:privacy@scouthook.com">privacy@scouthook.com</a>. Until that inbox is live, use the same personal email you use to reach the Scouthook team (for example the address from your account or onboarding).
+        </p>
+
+        <h2>2. Data we collect</h2>
+        <p>We may collect the following categories of data:</p>
+        <ul>
+          <li>
+            <strong>Profile fields (stored in our database):</strong> Information you provide in the product, such as audience role, audience pain, content niche, and contrarian view.
+          </li>
+          <li>
+            <strong>Writing samples:</strong> Text you submit for one-time voice extraction. Samples are processed using Claude (Anthropic) to generate a voice fingerprint. <strong>Raw writing samples are not retained after the fingerprint is generated.</strong>
+          </li>
+          <li>
+            <strong>LinkedIn OAuth tokens:</strong> When you authorize Scouthook, we receive and store an access token and refresh token so the app can perform actions you request. Tokens are stored <strong>encrypted at rest</strong> using AES-256-GCM.
+          </li>
+        </ul>
+
+        <h2>3. How we use LinkedIn data</h2>
+        <p>This section is important if you connect a LinkedIn account:</p>
+        <ul>
+          <li>
+            LinkedIn tokens are used <strong>solely</strong> to publish posts on your behalf when you explicitly click Publish or confirm a scheduled post. We do not use your tokens for any other automated action.
+          </li>
+          <li>
+            We do <strong>not</strong> read your LinkedIn feed, connections, messages, or profile data beyond what is needed to identify your member ID for authorized publishing.
+          </li>
+          <li>
+            We do <strong>not</strong> sell, share, or use LinkedIn data for training general-purpose AI models or for advertising unrelated to operating Scouthook for you.
+          </li>
+          <li>
+            The LinkedIn scope we request is <strong><code>w_member_social</code></strong> (posting on your behalf as permitted by LinkedIn’s platform).
+          </li>
+        </ul>
+
+        <h2>4. Data storage and security</h2>
+        <ul>
+          <li>
+            Application data, including profile fields and encrypted tokens, is stored in a <strong>SQLite</strong> database on servers hosted with <strong>Vercel</strong> (or equivalent cloud infrastructure we use to run the service).
+          </li>
+          <li>
+            LinkedIn tokens are encrypted with <strong>AES-256-GCM</strong>. Encryption keys are managed securely and are <strong>not</strong> stored in source code or public repositories.
+          </li>
+          <li>
+            Generated images (PNG/ZIP exports) are <strong>automatically deleted within 24 hours</strong> of generation unless a shorter retention period applies for operational reasons.
+          </li>
+        </ul>
+
+        <h2>5. Data retention</h2>
+        <ul>
+          <li>
+            <strong>LinkedIn tokens:</strong> Removed immediately when you disconnect your LinkedIn account in Scouthook or revoke access through LinkedIn.
+          </li>
+          <li>
+            <strong>Profile and post-related data:</strong> Retained until you request deletion or delete your account, subject to legal or security requirements.
+          </li>
+          <li>
+            <strong>Full account deletion:</strong> Available on request. We will remove your data within <strong>30 days</strong> of a verified deletion request, unless we must retain certain information where required by law.
+          </li>
+        </ul>
+
+        <h2>6. Your rights</h2>
+        <p>Depending on where you live, you may have the right to:</p>
+        <ul>
+          <li>Access the personal data we hold about you;</li>
+          <li>Correct inaccurate data;</li>
+          <li>Delete your account and associated data (see Section 5);</li>
+          <li>
+            Withdraw LinkedIn authorization at any time via
+            <a href="https://www.linkedin.com/mypreferences/d/settings" rel="noopener noreferrer">LinkedIn’s app settings</a>
+            or by disconnecting in Scouthook.
+          </li>
+        </ul>
+        <p>To exercise these rights, contact us at the email addresses listed in Section 1.</p>
+
+        <h2>7. LinkedIn API compliance</h2>
+        <p>
+          Scouthook is designed to comply with LinkedIn’s API Terms of Service and Developer Policy. Data obtained through LinkedIn APIs is used only for the purposes described in this policy (for example, publishing content you initiate) and not for undisclosed or incompatible uses.
+        </p>
+
+        <h2>8. Contact</h2>
+        <p>
+          General and privacy inquiries:
+          <a href="mailto:privacy@scouthook.com">privacy@scouthook.com</a>.
+          If that mailbox is not yet active, use your usual Scouthook contact email so we can respond within 48 hours for LinkedIn-related questions.
+        </p>
+        <p>
+          For questions specifically about LinkedIn data, we aim to respond within <strong>48 hours</strong>.
+        </p>
+
+        <h2>9. Changes to this policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. If we make material changes, we will notify you by email (if we have your address) or through an in-app notice. The “Last updated” date at the top will reflect the latest revision.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2025 Scouthook</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/privacy">Privacy Policy</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="https://app.scouthook.com">Open app</a>
+      </div>
+    </footer>
+  </body>
+</html>
