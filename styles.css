@@ -60,16 +60,30 @@ a:hover {
 }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: -0.02em;
-  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
   text-decoration: none;
 }
 
+.logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: min(200px, 50vw);
+}
+
 .logo:hover {
-  color: var(--accent-light);
   text-decoration: none;
+}
+
+.logo:hover img {
+  opacity: 0.88;
+}
+
+.site-footer .logo--footer img {
+  height: 26px;
+  max-width: min(180px, 42vw);
 }
 
 .nav-cta {
@@ -339,6 +353,11 @@ h2 {
 
 .site-footer a:hover {
   color: var(--accent-light);
+}
+
+.site-footer .logo:hover img {
+  opacity: 1;
+  filter: brightness(1.08);
 }
 
 .site-footer .sep {
