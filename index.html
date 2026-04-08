@@ -20,8 +20,8 @@
         --bg-app: #f9fafb;
         --bg-surface: #ffffff;
         --text-heading: #09090b;
-        --text-body: #3f3f46;
-        --text-muted: #71717a;
+        --text-body: #18181b;
+        --text-muted: #3f3f46;
         --border: #e4e4e7;
         --border-divider: #f4f4f5;
 
@@ -88,7 +88,7 @@
       }
 
       h2 {
-        font-size: clamp(24px, 3vw, 34px);
+        font-size: clamp(19px, 2.4vw, 27px);
         font-weight: 700;
         letter-spacing: -0.02em;
         line-height: 1.25;
@@ -106,6 +106,34 @@
         font-size: 16px;
         font-weight: 400;
         line-height: 1.7;
+        color: var(--text-body);
+      }
+
+      /* Light sections typography (below hero only) */
+      main section:not(.hero) h2 {
+        font-size: clamp(26px, 3.2vw, 35px);
+        font-weight: 700;
+        font-family: var(--font-heading);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      main section:not(.hero) h3 {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: var(--font-heading);
+        letter-spacing: -0.01em;
+      }
+
+      main section:not(.hero) p {
+        font-size: 18px;
+        line-height: 1.75;
+        color: var(--text-body);
+      }
+
+      main section:not(.hero) li {
+        font-size: 17px;
+        line-height: 1.65;
         color: var(--text-body);
       }
 
@@ -152,6 +180,13 @@
         padding: 0 24px;
       }
 
+      .nav-shell {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+        width: 100%;
+      }
+
       section {
         padding: 88px 0;
         border-bottom: 1px solid var(--border-divider);
@@ -164,7 +199,7 @@
       .section-tag {
         display: inline-block;
         font-family: var(--font-body);
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -179,7 +214,7 @@
         border-left: 3px solid var(--brand);
         padding-left: 16px;
         font-family: var(--font-heading);
-        font-size: 19px;
+        font-size: 21px;
         font-weight: 700;
         color: var(--text-heading);
         margin: 2rem 0;
@@ -187,14 +222,23 @@
       }
 
       nav {
-        position: sticky;
+        position: fixed;
         top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
         z-index: 100;
-        background: var(--bg-surface);
-        border-bottom: 1px solid var(--border);
-        height: 56px;
+        background: transparent;
+        border-bottom: 1px solid transparent;
+        height: 60px;
         display: flex;
         align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      nav.nav-scrolled {
+        background: #071a18;
+        border-bottom-color: rgba(255, 255, 255, 0.08);
       }
 
       .nav-inner {
@@ -205,11 +249,22 @@
       }
 
       .nav-logo {
-        font-family: var(--font-heading);
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--text-heading);
-        letter-spacing: -0.02em;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-logo img {
+        height: 33px;
+        width: auto;
+        display: block;
+      }
+
+      .nav-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 32px;
+        width: 100%;
       }
 
       .bullet-list {
@@ -250,53 +305,64 @@
 
       /* ── HERO SECTION ── */
       .hero {
-        background: #0f766e;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: #071a18;
+        background-image: radial-gradient(1100px 760px at 22% 52%, rgba(15, 118, 110, 0.65), rgba(15, 118, 110, 0) 68%),
+          radial-gradient(780px 540px at 86% 12%, rgba(15, 118, 110, 0.3), rgba(15, 118, 110, 0) 60%),
+          linear-gradient(135deg, #0a2420 0%, #071a18 72%);
+        border-bottom: none;
         overflow: hidden;
+        padding-top: 140px;
+        padding-bottom: 0;
       }
 
       .hero-inner {
-        max-width: 860px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 0 24px;
+        padding: 0;
       }
 
-      /* ── HEADLINE BLOCK ── */
       .hero-text {
         text-align: center;
-        padding: 80px 0 56px;
         max-width: 680px;
         margin: 0 auto;
+        padding-bottom: 56px;
+        padding-left: 32px;
+        padding-right: 32px;
+        overflow: visible;
       }
 
       .hero-tag {
         display: inline-block;
         font-family: var(--font-body);
-        font-size: 11px;
+        font-size: 15px;
         font-weight: 600;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: var(--radius-md);
-        padding: 4px 12px;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        color: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 8px;
+        padding: 6px 12px;
         margin-bottom: 28px;
+        background: rgba(15, 118, 110, 0.26);
       }
 
       .hero-h1 {
         font-family: var(--font-heading);
-        font-size: clamp(36px, 5.5vw, 56px);
+        font-size: clamp(32px, 4.5vw, 40px);
         font-weight: 800;
-        letter-spacing: -0.03em;
-        line-height: 1.12;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
         color: #ffffff;
         margin-bottom: 24px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
       }
 
       .hero-highlight {
         position: relative;
-        display: inline;
-        white-space: nowrap;
+        display: inline-block;
         color: #ffffff;
       }
 
@@ -306,22 +372,21 @@
         bottom: 1px;
         left: 0;
         width: 100%;
-        height: 3px;
+        height: 2px;
         background: rgba(255, 255, 255, 0.4);
         border-radius: 2px;
       }
 
       .hero-sub {
-        font-size: 17px;
+        font-size: 20px;
         line-height: 1.65;
-        color: rgba(255, 255, 255, 0.75);
-        margin-bottom: 36px;
-        max-width: 520px;
+        color: rgba(255, 255, 255, 0.88);
+        max-width: 680px;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 36px;
       }
 
-      /* ── SINGLE CTA ── */
       .hero-cta {
         display: flex;
         justify-content: center;
@@ -332,12 +397,13 @@
         font-family: var(--font-body);
         font-size: 15px;
         font-weight: 600;
-        padding: 14px 28px;
-        border-radius: var(--radius-md);
+        padding: 18px 32px;
+        border-radius: 8px;
         cursor: pointer;
         background: #ffffff;
         color: #0f766e;
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 14px 40px rgba(0, 0, 0, 0.18);
         transition: background 0.15s ease;
         white-space: nowrap;
       }
@@ -346,48 +412,119 @@
         background: #f0fdf9;
       }
 
-      /* ── SCREENSHOT BLOCK ── */
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.9);
+        background: transparent;
+        transition: background 0.15s ease, border-color 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .nav-cta:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
       .hero-screenshot-wrap {
         width: 100%;
         display: flex;
         justify-content: center;
-        padding-bottom: 0;
+        padding-left: 32px;
+        padding-right: 32px;
       }
 
       .hero-screenshot-frame {
         position: relative;
         width: 100%;
-        max-width: 980px;
-        transform: perspective(1200px) rotateX(8deg);
-        transform-origin: center top;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        transform: perspective(1200px) rotateX(4deg);
+        transform-origin: center bottom;
+        border-radius: 12px 12px 0 0;
         overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.12), 0 24px 64px rgba(0, 0, 0, 0.18),
-          0 0 0 1px rgba(255, 255, 255, 0.08);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.2), 0 40px 80px rgba(0, 0, 0, 0.25);
       }
 
       .hero-screenshot {
         width: 100%;
         height: auto;
         display: block;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       }
 
-      /* Soft fade at the bottom of the screenshot */
       .hero-screenshot-fade {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        height: 45%;
+        height: 52%;
+        z-index: 2;
+        pointer-events: none;
+        /* Must end in opaque #F9FAFB at 100% so no dark pixels show through at the frame bottom */
         background: linear-gradient(
           to bottom,
-          rgba(15, 118, 110, 0) 0%,
-          rgba(15, 118, 110, 0.15) 40%,
-          rgba(15, 118, 110, 0.55) 70%,
-          rgba(15, 118, 110, 0.92) 100%
+          rgba(249, 250, 251, 0) 0%,
+          rgba(249, 250, 251, 0.35) 42%,
+          rgba(249, 250, 251, 0.85) 72%,
+          #f9fafb 88%,
+          #f9fafb 100%
         );
-        pointer-events: none;
+      }
+
+      @media (max-width: 768px) {
+        nav .nav-cta {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 100px;
+        }
+
+        .hero-h1 {
+          font-size: 28px;
+          white-space: normal;
+        }
+
+        .hero-sub {
+          font-size: 16px;
+        }
+
+        .hero-text {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .hero-screenshot-wrap {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .hero-screenshot-frame {
+          transform: none;
+          border-radius: 12px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        /* ── MOBILE ── */
+      }
+
+      /*
+        Preserve existing sections below hero:
+        problem, solution, demo, differentiation, social proof, who it's for, features, pricing, final CTA, and footer
+      */
+      /* ── Legacy hero styles removed via overrides above ── */
+
+      @media (min-width: 768px) {
+        .hero-h1 {
+          white-space: nowrap;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+        }
       }
 
       .split-panel {
@@ -465,31 +602,101 @@
         margin-top: 10px;
       }
 
-      .pillars-grid {
+      /* Pillar cards: styles live under .section-solution only (see below) */
+
+      section.section-solution {
+        background: #0d1117;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      section.section-solution .section-tag {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 4px 12px;
+        display: inline-block;
+        margin-bottom: 28px;
+        background: transparent;
+      }
+
+      /* .container in selector beats main section:not(.hero) h2 / p specificity */
+      main section.section-solution .container > h2 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: clamp(28px, 3.2vw, 38px);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: #ffffff;
+      }
+
+      main section.section-solution .container > h2 + p {
+        font-size: 18px;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 580px;
+      }
+
+      section.section-solution .pillars-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 16px;
-        margin-top: 32px;
+        gap: 20px;
+        margin-top: 40px;
       }
 
-      .pillar-card {
-        background: var(--bg-surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 20px 24px;
-        box-shadow: var(--shadow-sm);
+      section.section-solution .pillar-card {
+        background: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 28px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
       }
 
-      .pillar-emoji {
-        font-size: 24px;
+      section.section-solution .pillar-emoji {
+        font-size: 28px;
         display: block;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
       }
 
-      .pillars-note {
-        margin-top: 24px;
-        font-size: 13px;
-        color: var(--text-muted);
+      main section.section-solution .pillar-card h3 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 18px;
+        color: #09090b;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+      }
+
+      main section.section-solution .pillar-card p {
+        font-size: 15px;
+        color: #3f3f46;
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      section.section-solution .pillars-note {
+        margin-top: 32px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.45);
+        font-style: italic;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        section.section-solution {
+          padding: 64px 0;
+        }
+
+        section.section-solution .pillar-card {
+          padding: 20px;
+        }
+
+        section.section-solution .pillars-note {
+          text-align: left;
+        }
       }
 
       .demo-block {
@@ -634,15 +841,15 @@
       }
 
       .quote {
-        font-size: 15px;
+        font-size: 17px;
         font-style: italic;
         color: var(--text-heading);
-        line-height: 1.6;
+        line-height: 1.7;
         margin-bottom: 16px;
       }
 
       .attribution {
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-muted);
       }
 
@@ -665,7 +872,7 @@
 
       .feature-name {
         font-family: var(--font-heading);
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 700;
         color: var(--text-heading);
         white-space: nowrap;
@@ -677,7 +884,7 @@
       }
 
       .feature-desc {
-        font-size: 15px;
+        font-size: 16px;
         color: var(--text-body);
         line-height: 1.6;
       }
@@ -702,7 +909,7 @@
       }
 
       .tier-label {
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--text-muted);
         margin-bottom: 12px;
@@ -722,6 +929,16 @@
         margin-bottom: 20px;
       }
 
+      .price-after-launch {
+        display: inline-block;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--text-body);
+        text-decoration: line-through;
+        text-decoration-thickness: 2px;
+        letter-spacing: -0.01em;
+      }
+
       .pricing-divider {
         height: 1px;
         background: var(--border-divider);
@@ -729,7 +946,7 @@
       }
 
       .pricing-features {
-        font-size: 14px;
+        font-size: 15px;
         color: var(--text-body);
         line-height: 2;
       }
@@ -826,36 +1043,100 @@
           gap: 8px;
           text-align: center;
         }
+      }
 
-        /* ── MOBILE ── */
-        .hero-text {
-          padding: 56px 0 40px;
+      /* ========== Features section (.section-features) — scoped only ========== */
+      section.section-features {
+        background: #f9fafb;
+      }
+
+      main section.section-features .container > .section-tag {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #3f3f46;
+        border: 1px solid #e4e4e7;
+        border-radius: 8px;
+        padding: 4px 12px;
+        display: inline-block;
+        margin-bottom: 28px;
+      }
+
+      main section.section-features .container > h2 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: clamp(28px, 3.2vw, 38px);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: #09090b;
+        margin-bottom: 40px;
+      }
+
+      .section-features .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      .section-features .feature-card-dark {
+        background: #0d1117;
+        border-radius: 12px;
+        padding: 28px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .section-features .feature-card-icon {
+        width: 32px;
+        height: 32px;
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .section-features .feature-card-icon svg {
+        width: 32px;
+        height: 32px;
+        display: block;
+      }
+
+      .section-features .feature-card-name {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 18px;
+        color: #ffffff;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      main section.section-features .feature-card-desc {
+        font-family: var(--font-body);
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        .section-features .features-grid {
+          grid-template-columns: 1fr;
         }
 
-        .hero-h1 {
-          font-size: 34px;
-        }
-
-        .hero-sub {
-          font-size: 15px;
-        }
-
-        .btn-hero-primary {
-          width: 100%;
-          text-align: center;
-        }
-
-        .hero-screenshot-frame {
-          transform: perspective(800px) rotateX(5deg);
+        .section-features .feature-card-dark {
+          padding: 20px;
         }
       }
     </style>
   </head>
   <body>
-    <nav>
-      <div class="container nav-inner">
-        <span class="nav-logo">Scouthook</span>
-        <a href="#pricing" class="btn btn-outlined btn-small">Start free →</a>
+    <nav id="site-nav">
+      <div class="nav-container nav-inner">
+        <a class="nav-logo" href="/">
+          <img src="/images/logo-light.png" alt="Scouthook" />
+        </a>
+        <a href="#" class="nav-cta waitlist-cta">Start free →</a>
       </div>
     </nav>
 
@@ -863,17 +1144,13 @@
       <section class="hero">
         <div class="hero-inner">
           <div class="hero-text">
-            <div class="hero-tag">For consultants &amp; fractional operators</div>
-            <h1 class="hero-h1">
-              Your next <span class="hero-highlight">$10K client</span><br />
-              is already on LinkedIn.<br />
-              They just haven't noticed you yet.
-            </h1>
+            <div class="hero-tag">For Consultants &amp; Fractional Operators</div>
+            <h1 class="hero-h1">Your next <span class="hero-highlight">$10K client</span> is already on LinkedIn</h1>
             <p class="hero-sub">
-              Scouthook turns your expertise into posts that bring serious inbound — not just likes from people who'll never hire you.
+              Scouthook turns your expertise into posts that bring serious inbound, not just likes from people who'll never hire you.
             </p>
             <div class="hero-cta">
-              <a href="#pricing" class="btn-hero-primary"> Turn your next idea into a $10K conversation → </a>
+              <a href="#" class="btn-hero-primary waitlist-cta">Turn your next idea into a $10K conversation →</a>
             </div>
           </div>
 
@@ -881,10 +1158,10 @@
             <div class="hero-screenshot-frame">
               <img
                 src="/images/app-screenshot.png"
-                alt="Scouthook app — raw thought becomes a quality-scored LinkedIn post"
+                alt="Scouthook app, type a thought, get a quality-scored LinkedIn post"
                 class="hero-screenshot"
               />
-              <div class="hero-screenshot-fade"></div>
+              <div class="hero-screenshot-fade" aria-hidden="true"></div>
             </div>
           </div>
         </div>
@@ -895,7 +1172,7 @@
           <span class="section-tag">Why most LinkedIn content fails</span>
           <h2>Most LinkedIn content is written for attention. The best is written for decisions.</h2>
           <p class="problem-paragraph">
-            You're posting. You're getting engagement. But the consultants landing $20K–$50K retainers from LinkedIn aren't posting more than you — they're posting differently.
+            You're posting. You're getting engagement. But the consultants landing $20K–$50K retainers from LinkedIn aren't posting more than you, they're posting differently.
           </p>
 
           <ul class="bullet-list" aria-label="Common problems">
@@ -910,7 +1187,7 @@
         </div>
       </section>
 
-      <section>
+      <section class="section-solution">
         <div class="container">
           <span class="section-tag">How Scouthook works</span>
           <h2>Content that turns into conversations with buyers.</h2>
@@ -918,17 +1195,65 @@
 
           <div class="pillars-grid">
             <div class="pillar-card">
-              <span class="pillar-emoji">🧠</span>
+              <span class="pillar-emoji" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16 4 C10 4 6 8 6 13 C6 17 8 20 12 21.5 L12 26 L20 26 L20 21.5 C24 20 26 17 26 13 C26 8 22 4 16 4 Z"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linejoin="round"
+                  />
+                  <line x1="12" y1="26" x2="20" y2="26" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <line x1="13" y1="29" x2="19" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <line x1="16" y1="8" x2="16" y2="14" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
+                  <line x1="13" y1="11" x2="19" y2="11" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3>Think clearly</h3>
               <p>Finds the strongest angle in your idea automatically — no blank page, no guesswork</p>
             </div>
             <div class="pillar-card">
-              <span class="pillar-emoji">✍️</span>
+              <span class="pillar-emoji" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6 26 L10 22 L24 8 C25.1 6.9 26.9 6.9 28 8 C29.1 9.1 29.1 10.9 28 12 L14 26 Z"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linejoin="round"
+                  />
+                  <line x1="6" y1="26" x2="11" y2="21" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <line x1="4" y1="28" x2="10" y2="28" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <line x1="21" y1="11" x2="25" y2="15" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3>Write with authority</h3>
               <p>Voice fingerprint ensures every post sounds like you at your best — not AI, not templates</p>
             </div>
             <div class="pillar-card">
-              <span class="pillar-emoji">🎯</span>
+              <span class="pillar-emoji" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10 6 C10 6 10 14 10 18 C10 22 13 24 16 24 C19 24 22 22 22 18 C22 14 22 6 22 6"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M10 6 C10 6 13 4 16 4 C19 4 22 6 22 6"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                  />
+                  <line x1="16" y1="24" x2="16" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <line x1="12" y1="29" x2="20" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M7 10 C4 12 4 20 7 22" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round" />
+                  <path d="M25 10 C28 12 28 20 25 22" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round" />
+                </svg>
+              </span>
               <h3>Attract the right clients</h3>
               <p>Every post checked before you see it — weak hooks, clichés, and low-signal phrasing removed</p>
             </div>
@@ -941,7 +1266,7 @@
       <section id="demo">
         <div class="container">
           <span class="section-tag">See it in action</span>
-          <h2>From rough idea to client-ready post — in under 60 seconds.</h2>
+          <h2>From rough idea to client-ready post, in under 60 seconds.</h2>
 
           <div class="demo-block">
             <div class="demo-step">
@@ -978,103 +1303,85 @@
               <div class="step-circle">4</div>
               <div>
                 <div class="step-label">You publish</div>
-                <div class="step-text step-text-medium">Knowing it will attract the right people — not just likes.</div>
+                <div class="step-text step-text-medium">Knowing it will attract the right people, not just likes.</div>
               </div>
             </div>
           </div>
 
           <div class="demo-cta">
-            <a href="#pricing" class="btn btn-primary">Try it with your next idea →</a>
+            <a href="#" class="btn btn-primary waitlist-cta">Try it with your next idea →</a>
           </div>
         </div>
       </section>
 
-      <section>
-        <div class="container">
-          <span class="section-tag">Not another AI tool</span>
-          <h2>This is not another AI writing tool.</h2>
-
-          <div class="comparison-wrapper" aria-label="Comparison">
-            <div class="comparison-headers">
-              <div class="comparison-header-left">Other tools</div>
-              <div class="comparison-header-right">Scouthook</div>
-            </div>
-            <div class="comparison-row">
-              <div class="comparison-left">Written for attention</div>
-              <div class="comparison-right">Written for decisions</div>
-            </div>
-            <div class="comparison-row">
-              <div class="comparison-left">Optimise for engagement</div>
-              <div class="comparison-right">Optimise for inbound</div>
-            </div>
-            <div class="comparison-row">
-              <div class="comparison-left">Sound like AI</div>
-              <div class="comparison-right">Sound like your best thinking</div>
-            </div>
-            <div class="comparison-row">
-              <div class="comparison-left">Generate more</div>
-              <div class="comparison-right">Generate signal</div>
-            </div>
-          </div>
-
-          <div class="anchor-line">We don't help you post more. We help you post what leads to $10K–$50K conversations.</div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <span class="section-tag">Early feedback</span>
-          <h2>Built for consultants and fractional operators who sell expertise.</h2>
-
-          <div class="cards-grid">
-            <div class="card">
-              <p class="quote">"This is the first time I know if a post will bring leads before I publish it."</p>
-              <p class="attribution">Fractional CMO, B2B SaaS</p>
-            </div>
-            <div class="card">
-              <p class="quote">"It helped me clarify what I think — and made it sound like me."</p>
-              <p class="attribution">Strategy Consultant, Series A–C</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <span class="section-tag">Built for</span>
-          <h2>If your content drives your pipeline, this is for you.</h2>
-
-          <div class="cards-grid">
-            <div class="card">
-              <h3>Consultants</h3>
-              <p style="margin-top: 8px; font-size: 14px">One strong post can open a $20K conversation. Scouthook helps you write the ones that do.</p>
-            </div>
-            <div class="card">
-              <h3>Fractional executives</h3>
-              <p style="margin-top: 8px; font-size: 14px">Your next retainer starts with a DM. That message starts with your content.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
+      <section class="section-features">
         <div class="container">
           <span class="section-tag">What's inside</span>
           <h2>Everything that separates signal from noise.</h2>
 
-          <div class="feature-rows">
-            <div class="feature-row">
-              <span class="feature-name">Voice fingerprint</span><span class="feature-dash">—</span><span class="feature-desc">Write like your best self — trained on your real writing</span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-name">Hook archetypes</span><span class="feature-dash">—</span><span class="feature-desc">Start strong every time — 8 structures, auto-selected for your idea</span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-name">Quality gate</span><span class="feature-dash">—</span><span class="feature-desc">Block weak or generic content before it reaches your feed</span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-name">Idea → post system</span><span class="feature-dash">—</span><span class="feature-desc">No prompts, no babysitting — just your thinking, structured</span>
-            </div>
+          <div class="features-grid">
+            <article class="feature-card-dark">
+              <span class="feature-card-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="12" width="4" height="8" rx="2" fill="#10B981" />
+                  <rect x="9" y="6" width="4" height="20" rx="2" fill="#10B981" />
+                  <rect x="16" y="2" width="4" height="28" rx="2" fill="#10B981" />
+                  <rect x="23" y="6" width="4" height="20" rx="2" fill="#10B981" />
+                </svg>
+              </span>
+              <span class="feature-card-name">Voice fingerprint</span>
+              <p class="feature-card-desc">Write like your best self — trained on your real writing.</p>
+            </article>
+            <article class="feature-card-dark">
+              <span class="feature-card-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="8" r="3" stroke="#10B981" stroke-width="2.5" fill="none" />
+                  <line x1="16" y1="11" x2="16" y2="28" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M8 18 C8 26 24 26 24 18" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                  <line x1="10" y1="14" x2="22" y2="14" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="feature-card-name">Hook archetypes</span>
+              <p class="feature-card-desc">Start strong every time — 8 structures auto-selected for your idea.</p>
+            </article>
+            <article class="feature-card-dark">
+              <span class="feature-card-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16 3 L28 8 L28 17 C28 23 22 28 16 30 C10 28 4 23 4 17 L4 8 Z"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linejoin="round"
+                  />
+                  <polyline
+                    points="11,16 14,20 21,13"
+                    stroke="#10B981"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="feature-card-name">Quality gate</span>
+              <p class="feature-card-desc">Block weak or generic content before it reaches your feed.</p>
+            </article>
+            <article class="feature-card-dark">
+              <span class="feature-card-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polyline
+                    points="18,3 10,17 16,17 14,29 22,15 16,15"
+                    fill="#10B981"
+                    stroke="#10B981"
+                    stroke-width="1"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="feature-card-name">Idea → post system</span>
+              <p class="feature-card-desc">No prompts, no babysitting — just your thinking, structured.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -1095,16 +1402,16 @@
                 See what your thinking could become
               </div>
               <div style="margin-top: 24px">
-                <a href="#pricing" class="btn btn-outlined full-width">Start free →</a>
+                <a href="#" class="btn btn-outlined full-width waitlist-cta">Start free →</a>
               </div>
             </div>
 
             <div class="pricing-card pricing-card-pro">
-              <span class="founder-badge" data-spots="61">Founding 100 — 61 spots left</span>
+              <span class="founder-badge" data-spots="61">Founding 100, 61 spots left</span>
               <div class="tier-label">Pro</div>
               <div class="price">$49</div>
               <div class="price-sub">
-                <span style="text-decoration: line-through; color: var(--text-muted)">$97/month after launch</span><br />
+                <span class="price-after-launch">$97/month after launch</span><br />
                 <span style="font-size: 12px; color: var(--text-muted)">Locked for life at this price</span>
               </div>
               <div class="pricing-divider" aria-hidden="true"></div>
@@ -1115,7 +1422,7 @@
                 <span class="check">✓</span> All hook archetypes
               </div>
               <div style="margin-top: 24px">
-                <a href="#pricing" class="btn btn-primary full-width">Claim your spot →</a>
+                <a href="#" class="btn btn-primary full-width waitlist-cta">Claim your spot →</a>
               </div>
             </div>
           </div>
@@ -1129,9 +1436,9 @@
           <div class="final-cta-block">
             <h2>One strong post can change your pipeline. Most consultants never write it.</h2>
             <p>
-              Your next client is already on LinkedIn — reading, evaluating, deciding who they trust. Some posts lead to $20K conversations. Most don't.
+              Your next client is already on LinkedIn, reading, evaluating, deciding who they trust. Some posts lead to $20K conversations. Most don't.
             </p>
-            <a href="#pricing" class="btn btn-primary">Turn your next idea into a $10K conversation →</a>
+            <a href="#" class="btn btn-primary waitlist-cta">Turn your next idea into a $10K conversation →</a>
           </div>
         </div>
       </section>
@@ -1143,5 +1450,475 @@
         <span>Built for people who sell expertise</span>
       </div>
     </footer>
+
+    <div
+      id="waitlist-backdrop"
+      style="
+        position: fixed;
+        inset: 0;
+        background: rgba(9, 9, 11, 0.75);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        id="waitlist-card"
+        style="
+          max-width: 480px;
+          width: 100%;
+          background: #ffffff;
+          border-radius: 16px;
+          padding: 40px;
+          position: relative;
+          margin: 20px;
+        "
+      >
+        <button
+          id="waitlist-close"
+          type="button"
+          aria-label="Close"
+          style="
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #71717a;
+            line-height: 1;
+          "
+        >
+          ×
+        </button>
+
+        <div id="waitlist-content">
+          <div
+            style="
+              font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+              font-weight: 800;
+              font-size: 24px;
+              color: #09090b;
+              letter-spacing: -0.02em;
+              margin-bottom: 8px;
+            "
+          >
+            Get early access to Scouthook.
+          </div>
+          <div
+            style="
+              font-family: Inter, system-ui, sans-serif;
+              font-size: 15px;
+              color: #3f3f46;
+              line-height: 1.6;
+              margin-bottom: 28px;
+            "
+          >
+            Join the founding 100 and lock in your rate for life.
+          </div>
+
+          <form id="waitlist-form">
+            <label
+              for="waitlist-name"
+              style="
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #09090b;
+                margin-bottom: 6px;
+              "
+              >Full name</label
+            >
+            <input
+              id="waitlist-name"
+              type="text"
+              placeholder="Your full name"
+              required
+              style="
+                width: 100%;
+                border: 1px solid #e4e4e7;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 15px;
+                color: #09090b;
+                margin-bottom: 16px;
+                outline: none;
+              "
+            />
+
+            <label
+              for="waitlist-email"
+              style="
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #09090b;
+                margin-bottom: 6px;
+              "
+              >Email address</label
+            >
+            <input
+              id="waitlist-email"
+              type="email"
+              placeholder="you@yourcompany.com"
+              required
+              style="
+                width: 100%;
+                border: 1px solid #e4e4e7;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 15px;
+                color: #09090b;
+                margin-bottom: 16px;
+                outline: none;
+              "
+            />
+
+            <label
+              for="waitlist-linkedin"
+              style="
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #09090b;
+                margin-bottom: 6px;
+              "
+            >
+              LinkedIn profile
+              <span style="font-weight: 500; color: #71717a">(optional)</span>
+            </label>
+            <input
+              id="waitlist-linkedin"
+              type="url"
+              placeholder="linkedin.com/in/yourname — helps us personalise your onboarding"
+              style="
+                width: 100%;
+                border: 1px solid #e4e4e7;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 15px;
+                color: #09090b;
+                margin-bottom: 16px;
+                outline: none;
+              "
+            />
+
+            <div
+              style="
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #09090b;
+                margin-bottom: 6px;
+              "
+            >
+              Which plan interests you?
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-bottom: 4px">
+              <div
+                id="tier-free"
+                data-tier="free"
+                style="
+                  flex: 1;
+                  border: 1.5px solid #e4e4e7;
+                  border-radius: 12px;
+                  padding: 16px;
+                  cursor: pointer;
+                  transition: border 0.15s ease, background 0.15s ease;
+                  user-select: none;
+                "
+              >
+                <div style="font-weight: 700; font-size: 16px; color: #09090b">$0 / month</div>
+                <div style="font-size: 13px; color: #71717a; margin-top: 4px">3 posts/month · No credit card</div>
+              </div>
+
+              <div
+                id="tier-pro"
+                data-tier="pro"
+                style="
+                  flex: 1;
+                  border: 1.5px solid #e4e4e7;
+                  border-radius: 12px;
+                  padding: 16px;
+                  cursor: pointer;
+                  transition: border 0.15s ease, background 0.15s ease;
+                  user-select: none;
+                "
+              >
+                <div
+                  style="
+                    display: inline-block;
+                    background: #d1fae5;
+                    color: #065f46;
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 3px 8px;
+                    border-radius: 100px;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Founding 100
+                </div>
+                <div style="font-weight: 700; font-size: 16px; color: #09090b">$49 / month</div>
+                <div style="font-size: 13px; color: #71717a; margin-top: 4px">Locked for life · All features</div>
+              </div>
+            </div>
+
+            <button
+              id="waitlist-submit"
+              type="submit"
+              style="
+                width: 100%;
+                background: #0f766e;
+                color: white;
+                font-weight: 600;
+                font-size: 15px;
+                padding: 14px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                margin-top: 20px;
+                transition: background 0.15s ease;
+              "
+            >
+              Join the waitlist →
+            </button>
+
+            <div
+              id="waitlist-error"
+              style="
+                display: none;
+                margin-top: 12px;
+                font-size: 14px;
+                color: #dc2626;
+                text-align: center;
+              "
+            ></div>
+          </form>
+
+          <div id="waitlist-success" style="display: none; text-align: center; padding: 20px 0">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="22" stroke="#10B981" stroke-width="2.5" fill="none" />
+              <polyline
+                points="14,24 21,31 34,17"
+                stroke="#10B981"
+                stroke-width="2.5"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div
+              style="
+                font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                color: #09090b;
+                margin-top: 16px;
+              "
+            >
+              You're on the list.
+            </div>
+            <div
+              style="
+                font-family: Inter, system-ui, sans-serif;
+                font-size: 15px;
+                color: #3f3f46;
+                margin-top: 8px;
+              "
+            >
+              We'll be in touch soon.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("site-nav");
+        if (!nav) return;
+        if (window.scrollY > 60) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      });
+    </script>
+
+    <script>
+      (function () {
+        const backdrop = document.getElementById("waitlist-backdrop");
+        const closeBtn = document.getElementById("waitlist-close");
+        const form = document.getElementById("waitlist-form");
+        const submitBtn = document.getElementById("waitlist-submit");
+        const errorEl = document.getElementById("waitlist-error");
+        const successEl = document.getElementById("waitlist-success");
+        const tierFree = document.getElementById("tier-free");
+        const tierPro = document.getElementById("tier-pro");
+
+        if (!backdrop || !closeBtn || !form || !submitBtn || !errorEl || !successEl || !tierFree || !tierPro) return;
+
+        let selectedTier = null;
+
+        function setTierSelected(el, selected) {
+          if (selected) {
+            el.classList.add("tier-selected");
+            el.style.border = "1.5px solid #0F766E";
+            el.style.background = "#F0FDFA";
+          } else {
+            el.classList.remove("tier-selected");
+            el.style.border = "1.5px solid #E4E4E7";
+            el.style.background = "#ffffff";
+          }
+        }
+
+        function clearError() {
+          errorEl.style.display = "none";
+          errorEl.textContent = "";
+        }
+
+        function showError(msg) {
+          errorEl.textContent = msg;
+          errorEl.style.display = "block";
+        }
+
+        function openModal() {
+          backdrop.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        }
+
+        function resetModal() {
+          form.reset();
+          clearError();
+          selectedTier = null;
+          setTierSelected(tierFree, false);
+          setTierSelected(tierPro, false);
+          form.style.display = "block";
+          successEl.style.display = "none";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Join the waitlist →";
+        }
+
+        function closeModal() {
+          const wasSuccess = successEl.style.display !== "none";
+          backdrop.style.display = "none";
+          document.body.style.overflow = "auto";
+          if (wasSuccess) resetModal();
+        }
+
+        document.querySelectorAll(".waitlist-cta").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal();
+          });
+        });
+
+        closeBtn.addEventListener("click", closeModal);
+
+        backdrop.addEventListener("click", (e) => {
+          if (e.target === backdrop) closeModal();
+        });
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+        });
+
+        tierFree.addEventListener("click", () => {
+          selectedTier = "free";
+          setTierSelected(tierFree, true);
+          setTierSelected(tierPro, false);
+        });
+
+        tierPro.addEventListener("click", () => {
+          selectedTier = "pro";
+          setTierSelected(tierPro, true);
+          setTierSelected(tierFree, false);
+        });
+
+        [document.getElementById("waitlist-name"), document.getElementById("waitlist-email"), document.getElementById("waitlist-linkedin")].forEach(
+          (input) => {
+            if (!input) return;
+            input.addEventListener("focus", () => {
+              input.style.borderColor = "#0F766E";
+              input.style.boxShadow = "0 0 0 3px rgba(15,118,110,0.10)";
+            });
+            input.addEventListener("blur", () => {
+              input.style.borderColor = "#E4E4E7";
+              input.style.boxShadow = "none";
+            });
+          }
+        );
+
+        submitBtn.addEventListener("mouseenter", () => {
+          if (!submitBtn.disabled) submitBtn.style.background = "#115E59";
+        });
+        submitBtn.addEventListener("mouseleave", () => {
+          if (!submitBtn.disabled) submitBtn.style.background = "#0F766E";
+        });
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          clearError();
+
+          if (!selectedTier) {
+            showError("Please select a plan to continue.");
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Joining…";
+          submitBtn.style.opacity = "0.6";
+          submitBtn.style.cursor = "not-allowed";
+
+          const name = (document.getElementById("waitlist-name") || {}).value || "";
+          const email = (document.getElementById("waitlist-email") || {}).value || "";
+          const linkedin_url = (document.getElementById("waitlist-linkedin") || {}).value || "";
+
+          try {
+            const r = await fetch("/api/waitlist", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name,
+                email,
+                linkedin_url,
+                tier: selectedTier,
+              }),
+            });
+
+            let j = null;
+            try {
+              j = await r.json();
+            } catch {
+              j = null;
+            }
+
+            if (r.status === 201) {
+              form.style.display = "none";
+              successEl.style.display = "block";
+              return;
+            }
+
+            if (r.status === 400 || r.status === 409) {
+              showError((j && j.message) || "Something went wrong. Please try again.");
+            } else {
+              showError("Something went wrong. Please try again.");
+            }
+          } catch {
+            showError("Something went wrong. Please try again.");
+          } finally {
+            if (successEl.style.display === "none") {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Join the waitlist →";
+              submitBtn.style.opacity = "1";
+              submitBtn.style.cursor = "pointer";
+              submitBtn.style.background = "#0F766E";
+            }
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
