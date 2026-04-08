@@ -248,42 +248,146 @@
         margin-top: 14px;
       }
 
+      /* ── HERO SECTION ── */
       .hero {
-        background: radial-gradient(900px 520px at 18% 12%, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0) 62%),
-          radial-gradient(860px 520px at 86% 48%, rgba(15, 118, 110, 0.16) 0%, rgba(15, 118, 110, 0) 58%),
-          linear-gradient(180deg, #0b1326 0%, #0a1020 100%);
-        color: rgba(255, 255, 255, 0.88);
+        background: #0f766e;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        overflow: hidden;
       }
 
-      .hero h1 {
+      .hero-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ── HEADLINE BLOCK ── */
+      .hero-text {
+        text-align: center;
+        padding: 80px 0 56px;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-md);
+        padding: 4px 12px;
+        margin-bottom: 28px;
+      }
+
+      .hero-h1 {
+        font-family: var(--font-heading);
+        font-size: clamp(36px, 5.5vw, 56px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.12;
+        color: #ffffff;
+        margin-bottom: 24px;
+      }
+
+      .hero-highlight {
+        position: relative;
+        display: inline;
+        white-space: nowrap;
         color: #ffffff;
       }
 
-      .hero p {
-        color: rgba(240, 244, 255, 0.82);
+      .hero-highlight::after {
+        content: "";
+        position: absolute;
+        bottom: 1px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 2px;
       }
 
-      .hero .section-tag {
-        color: rgba(240, 244, 255, 0.72);
-        border-color: rgba(240, 244, 255, 0.22);
-        background: rgba(10, 16, 32, 0.18);
+      .hero-sub {
+        font-size: 17px;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 36px;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .hero .bullet-list li {
-        color: rgba(240, 244, 255, 0.84);
+      /* ── SINGLE CTA ── */
+      .hero-cta {
+        display: flex;
+        justify-content: center;
       }
 
-      .hero .btn-outlined {
-        color: #ffffff;
-        border-color: rgba(240, 244, 255, 0.28);
+      .btn-hero-primary {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px 28px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        background: #ffffff;
+        color: #0f766e;
+        border: none;
+        transition: background 0.15s ease;
+        white-space: nowrap;
       }
 
-      .hero .btn-outlined:hover {
-        background: rgba(255, 255, 255, 0.08);
+      .btn-hero-primary:hover {
+        background: #f0fdf9;
       }
 
-      .hero .split-panel {
-        margin-top: 48px;
+      /* ── SCREENSHOT BLOCK ── */
+      .hero-screenshot-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 0;
+      }
+
+      .hero-screenshot-frame {
+        position: relative;
+        width: 100%;
+        max-width: 980px;
+        transform: perspective(1200px) rotateX(8deg);
+        transform-origin: center top;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.12), 0 24px 64px rgba(0, 0, 0, 0.18),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-screenshot {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      /* Soft fade at the bottom of the screenshot */
+      .hero-screenshot-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 118, 110, 0) 0%,
+          rgba(15, 118, 110, 0.15) 40%,
+          rgba(15, 118, 110, 0.55) 70%,
+          rgba(15, 118, 110, 0.92) 100%
+        );
+        pointer-events: none;
       }
 
       .split-panel {
@@ -722,6 +826,28 @@
           gap: 8px;
           text-align: center;
         }
+
+        /* ── MOBILE ── */
+        .hero-text {
+          padding: 56px 0 40px;
+        }
+
+        .hero-h1 {
+          font-size: 34px;
+        }
+
+        .hero-sub {
+          font-size: 15px;
+        }
+
+        .btn-hero-primary {
+          width: 100%;
+          text-align: center;
+        }
+
+        .hero-screenshot-frame {
+          transform: perspective(800px) rotateX(5deg);
+        }
       }
     </style>
   </head>
@@ -735,38 +861,30 @@
 
     <main>
       <section class="hero">
-        <div class="container">
-          <span class="section-tag">For consultants &amp; fractional operators</span>
-          <h1>Your next $10K client is already on LinkedIn. They just haven't noticed you yet.</h1>
-          <p class="hero-subtext">
-            Scouthook turns your raw expertise into posts that start $10K–$50K conversations — not just likes from people who'll never hire you.
-          </p>
-
-          <ul class="bullet-list" aria-label="Key benefits">
-            <li>Write posts that serious buyers actually respond to</li>
-            <li>Sound like your sharpest self — not another AI tool</li>
-            <li>Know before you publish whether it will bring clients or just noise</li>
-          </ul>
-
-          <div class="cta-row">
-            <a href="#pricing" class="btn btn-primary">Turn your next idea into a $10K conversation →</a>
-            <a href="#demo" class="btn btn-outlined">See a live transformation →</a>
+        <div class="hero-inner">
+          <div class="hero-text">
+            <div class="hero-tag">For consultants &amp; fractional operators</div>
+            <h1 class="hero-h1">
+              Your next <span class="hero-highlight">$10K client</span><br />
+              is already on LinkedIn.<br />
+              They just haven't noticed you yet.
+            </h1>
+            <p class="hero-sub">
+              Scouthook turns your expertise into posts that bring serious inbound — not just likes from people who'll never hire you.
+            </p>
+            <div class="hero-cta">
+              <a href="#pricing" class="btn-hero-primary"> Turn your next idea into a $10K conversation → </a>
+            </div>
           </div>
 
-          <div class="split-panel">
-            <div class="panel-left">
-              <span class="section-tag">Raw thought</span>
-              <pre class="panel-pre">"Most clients don't have a strategy problem. They have a courage problem."</pre>
-            </div>
-            <div class="panel-right">
-              <span class="section-tag">Scouthook output</span>
-              <div class="badges-row">
-                <span class="badge badge-green">Buyer signal: High</span>
-                <span class="badge badge-neutral">Score: 94/100</span>
-              </div>
-              <p class="post-preview">
-                "Most clients don't have a strategy problem. They have a courage problem. [↵↵] They know what to do. They've had three consultants tell them the same thing. [↵↵] What they don't have is someone willing to say: this is the decision you keep avoiding."
-              </p>
+          <div class="hero-screenshot-wrap">
+            <div class="hero-screenshot-frame">
+              <img
+                src="/images/app-screenshot.png"
+                alt="Scouthook app — raw thought becomes a quality-scored LinkedIn post"
+                class="hero-screenshot"
+              />
+              <div class="hero-screenshot-fade"></div>
             </div>
           </div>
         </div>
