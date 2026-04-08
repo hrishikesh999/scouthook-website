@@ -1,7 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
   "cleanUrls": true,
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs22.x"
+    }
+  },
   "rewrites": [
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/contact", "destination": "/contact.html" },

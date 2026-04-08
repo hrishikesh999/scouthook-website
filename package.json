@@ -1,6 +1,9 @@
 {
   "name": "scouthook-web",
   "private": true,
+  "scripts": {
+    "build": "node -e \"process.exit(0)\""
+  },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4"
   }
