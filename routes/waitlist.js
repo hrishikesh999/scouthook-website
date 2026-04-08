@@ -1,8 +1,10 @@
-const { getDb } = require("../lib/sqlite");
+const { neon } = require("@neondatabase/serverless");
 
 const SUCCESS_MESSAGE = "You're on the list. We'll be in touch soon.";
 const DUPLICATE_MESSAGE = "You're already on the list. We'll be in touch soon.";
 const SERVER_MESSAGE = "Something went wrong. Please try again.";
+const NOT_CONFIGURED_MESSAGE =
+  "Waitlist storage is not configured. Add DATABASE_URL in the project environment.";
 
 function isNonEmptyString(v, max) {
   if (typeof v !== "string") return false;
@@ -22,11 +24,35 @@ function isValidLinkedInUrl(url) {
   return LINKEDIN_PREFIXES.some((p) => s.startsWith(p));
 }
 
+let _sql;
+function getSql() {
+  const url = process.env.DATABASE_URL;
+  if (!url) return null;
+  if (!_sql) _sql = neon(url);
+  return _sql;
+}
+
+let _schemaReady;
+async function ensureSchema(sql) {
+  if (_schemaReady) return;
+  await sql`
+    CREATE TABLE IF NOT EXISTS waitlist (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      linkedin_url TEXT,
+      tier TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+    )
+  `;
+  _schemaReady = true;
+}
+
 /**
- * Validates input and inserts into waitlist.
- * @returns {{ status: number, json: object }}
+ * Validates input and inserts into waitlist (Neon Postgres).
+ * @returns {Promise<{ status: number, json: object }>}
  */
-function postWaitlist(body) {
+async function postWaitlist(body) {
   const name = body.name;
   const email = body.email;
   const tier = body.tier;
@@ -84,25 +110,27 @@ function postWaitlist(body) {
 
   const nameTrim = name.trim();
 
+  const sql = getSql();
+  if (!sql) {
+    return {
+      status: 503,
+      json: { error: "server", message: NOT_CONFIGURED_MESSAGE },
+    };
+  }
+
   try {
-    const db = getDb();
-    const stmt = db.prepare(
-      `INSERT INTO waitlist (name, email, linkedin_url, tier) VALUES (@name, @email, @linkedin_url, @tier)`
-    );
-    stmt.run({
-      name: nameTrim,
-      email: emailTrim,
-      linkedin_url,
-      tier,
-    });
+    await ensureSchema(sql);
+    await sql`
+      INSERT INTO waitlist (name, email, linkedin_url, tier)
+      VALUES (${nameTrim}, ${emailTrim}, ${linkedin_url}, ${tier})
+    `;
     return {
       status: 201,
       json: { success: true, message: SUCCESS_MESSAGE },
     };
   } catch (e) {
     const code = e && e.code;
-    const msg = e && e.message ? String(e.message) : "";
-    if (code === "SQLITE_CONSTRAINT_UNIQUE" || msg.includes("UNIQUE")) {
+    if (code === "23505") {
       return {
         status: 409,
         json: { error: "duplicate", message: DUPLICATE_MESSAGE },

@@ -2,6 +2,6 @@
   "name": "scouthook-web",
   "private": true,
   "dependencies": {
-    "better-sqlite3": "^11.8.1"
+    "@neondatabase/serverless": "^0.10.4"
   }
 }

@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
     );
   }
 
-  const result = postWaitlist(body);
+  const result = await postWaitlist(body);
   res.statusCode = result.status;
   return res.end(JSON.stringify(result.json));
 };
