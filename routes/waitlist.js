@@ -6,6 +6,14 @@ const SERVER_MESSAGE = "Something went wrong. Please try again.";
 const NOT_CONFIGURED_MESSAGE =
   "Waitlist storage is not configured. Add DATABASE_URL in the project environment.";
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function isNonEmptyString(v, max) {
   if (typeof v !== "string") return false;
   const t = v.trim();
@@ -46,6 +54,58 @@ async function ensureSchema(sql) {
     )
   `;
   _schemaReady = true;
+}
+
+async function sendWaitlistNotificationEmail({ name, email, linkedin_url, tier }) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return;
+
+  const to = process.env.WAITLIST_EMAIL_TO || "contact@sendhook.com";
+  const from = process.env.RESEND_FROM || "Scouthook <noreply@send.scouthook.com>";
+
+  const safeName = String(name || "").trim();
+  const safeEmail = String(email || "").trim();
+  const safeTier = String(tier || "").trim();
+  const safeLinkedIn = linkedin_url ? String(linkedin_url).trim() : "";
+
+  const html = `
+<p><strong>Name</strong><br>${escapeHtml(safeName)}</p>
+<p><strong>Email</strong><br>${escapeHtml(safeEmail)}</p>
+<p><strong>Tier</strong><br>${escapeHtml(safeTier)}</p>
+<p><strong>LinkedIn</strong><br>${safeLinkedIn ? `<a href="${escapeHtml(safeLinkedIn)}">${escapeHtml(safeLinkedIn)}</a>` : "(not provided)"}</p>
+`.trim();
+
+  const text = [
+    `Name: ${safeName}`,
+    `Email: ${safeEmail}`,
+    `Tier: ${safeTier}`,
+    `LinkedIn: ${safeLinkedIn || "(not provided)"}`,
+  ].join("\n");
+
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: safeEmail,
+        subject: `New waitlist signup — Scouthook (${safeTier})`,
+        html,
+        text,
+      }),
+    });
+
+    if (!r.ok) {
+      const errText = await r.text().catch(() => "");
+      console.error("Resend error (waitlist)", r.status, errText);
+    }
+  } catch (e) {
+    console.error("Resend error (waitlist)", e);
+  }
 }
 
 function getAdminTokenFromReq(req) {
@@ -184,6 +244,12 @@ async function postWaitlist(body) {
       INSERT INTO waitlist (name, email, linkedin_url, tier)
       VALUES (${nameTrim}, ${emailTrim}, ${linkedin_url}, ${tier})
     `;
+    sendWaitlistNotificationEmail({
+      name: nameTrim,
+      email: emailTrim,
+      linkedin_url,
+      tier,
+    });
     return {
       status: 201,
       json: { success: true, message: SUCCESS_MESSAGE },
