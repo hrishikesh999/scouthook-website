@@ -60,7 +60,10 @@ async function sendWaitlistNotificationEmail({ name, email, linkedin_url, tier }
   const key = process.env.RESEND_API_KEY;
   if (!key) return;
 
-  const to = process.env.WAITLIST_EMAIL_TO || "contact@sendhook.com";
+  const to =
+    process.env.WAITLIST_EMAIL_TO ||
+    process.env.EMAIL_TO ||
+    "contact@scouthook.com";
   const from = process.env.RESEND_FROM || "Scouthook <noreply@send.scouthook.com>";
 
   const safeName = String(name || "").trim();
@@ -244,7 +247,7 @@ async function postWaitlist(body) {
       INSERT INTO waitlist (name, email, linkedin_url, tier)
       VALUES (${nameTrim}, ${emailTrim}, ${linkedin_url}, ${tier})
     `;
-    sendWaitlistNotificationEmail({
+    await sendWaitlistNotificationEmail({
       name: nameTrim,
       email: emailTrim,
       linkedin_url,
