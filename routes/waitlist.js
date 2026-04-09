@@ -48,6 +48,66 @@ async function ensureSchema(sql) {
   _schemaReady = true;
 }
 
+function getAdminTokenFromReq(req) {
+  const h = req.headers || {};
+  const auth = typeof h.authorization === "string" ? h.authorization : "";
+  if (auth.toLowerCase().startsWith("bearer ")) return auth.slice(7).trim();
+  const x = typeof h["x-admin-token"] === "string" ? h["x-admin-token"] : "";
+  if (x) return x.trim();
+
+  try {
+    const u = new URL(req.url, "http://localhost");
+    const t = u.searchParams.get("token");
+    return t ? t.trim() : "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Returns waitlist rows (admin only).
+ * @returns {Promise<{ status: number, json: object }>}
+ */
+async function getWaitlist(req) {
+  const expected = process.env.ADMIN_TOKEN;
+  if (!expected) {
+    return {
+      status: 503,
+      json: {
+        error: "server",
+        message: "Admin access is not configured. Add ADMIN_TOKEN in the environment.",
+      },
+    };
+  }
+
+  const token = getAdminTokenFromReq(req);
+  if (!token || token !== expected) {
+    return { status: 401, json: { error: "unauthorized", message: "Unauthorized" } };
+  }
+
+  const sql = getSql();
+  if (!sql) {
+    return {
+      status: 503,
+      json: { error: "server", message: NOT_CONFIGURED_MESSAGE },
+    };
+  }
+
+  try {
+    await ensureSchema(sql);
+    const rows = await sql`
+      SELECT id, name, email, linkedin_url, tier, created_at
+      FROM waitlist
+      ORDER BY created_at DESC
+      LIMIT 500
+    `;
+    return { status: 200, json: { ok: true, rows } };
+  } catch (e) {
+    console.error("waitlist list error", e);
+    return { status: 500, json: { error: "server", message: SERVER_MESSAGE } };
+  }
+}
+
 /**
  * Validates input and inserts into waitlist (Neon Postgres).
  * @returns {Promise<{ status: number, json: object }>}
@@ -144,4 +204,4 @@ async function postWaitlist(body) {
   }
 }
 
-module.exports = { postWaitlist };
+module.exports = { postWaitlist, getWaitlist };

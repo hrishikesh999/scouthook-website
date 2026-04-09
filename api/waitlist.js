@@ -1,4 +1,4 @@
-const { postWaitlist } = require("../routes/waitlist");
+const { postWaitlist, getWaitlist } = require("../routes/waitlist");
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -27,9 +27,15 @@ async function getJsonBody(req) {
 module.exports = async (req, res) => {
   res.setHeader("Content-Type", "application/json");
 
+  if (req.method === "GET") {
+    const result = await getWaitlist(req);
+    res.statusCode = result.status;
+    return res.end(JSON.stringify(result.json));
+  }
+
   if (req.method !== "POST") {
     res.statusCode = 405;
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "GET, POST");
     return res.end(JSON.stringify({ error: "Method not allowed" }));
   }
 

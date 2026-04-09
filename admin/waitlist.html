@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scouthook — Waitlist</title>
+    <style>
+      :root {
+        --bg: #0b0c10;
+        --card: #111318;
+        --text: #e4e4e7;
+        --muted: #a1a1aa;
+        --border: rgba(255, 255, 255, 0.08);
+        --brand: #0f766e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 40px 18px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .sub {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px;
+      }
+
+      .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+
+      input {
+        flex: 1;
+        min-width: 240px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        outline: none;
+      }
+
+      button {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(15, 118, 110, 0.45);
+        background: rgba(15, 118, 110, 0.18);
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: rgba(15, 118, 110, 0.25);
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 8px 0 0;
+      }
+
+      .error {
+        color: #fca5a5;
+        font-size: 13px;
+        margin-top: 10px;
+        display: none;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 14px;
+        font-size: 13px;
+      }
+
+      th,
+      td {
+        padding: 10px 10px;
+        border-top: 1px solid var(--border);
+        vertical-align: top;
+        text-align: left;
+        word-break: break-word;
+      }
+
+      th {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      a {
+        color: #6ee7b7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Waitlist</h1>
+      <p class="sub">Token-protected view of recent signups (latest first)</p>
+
+      <div class="card">
+        <div class="row">
+          <input id="token" type="password" placeholder="ADMIN_TOKEN" autocomplete="current-password" />
+          <button id="load" type="button">Load signups</button>
+          <button id="clear" type="button">Clear token</button>
+        </div>
+
+        <div class="meta" id="meta">Not loaded</div>
+        <div class="error" id="error"></div>
+
+        <div style="overflow: auto">
+          <table id="table" style="display: none">
+            <thead>
+              <tr>
+                <th>Created</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Tier</th>
+                <th>LinkedIn</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const tokenInput = document.getElementById("token");
+        const loadBtn = document.getElementById("load");
+        const clearBtn = document.getElementById("clear");
+        const meta = document.getElementById("meta");
+        const error = document.getElementById("error");
+        const table = document.getElementById("table");
+        const tbody = document.getElementById("tbody");
+
+        const saved = sessionStorage.getItem("ADMIN_TOKEN") || "";
+        if (saved) tokenInput.value = saved;
+
+        function showError(msg) {
+          error.textContent = msg;
+          error.style.display = "block";
+        }
+        function clearError() {
+          error.textContent = "";
+          error.style.display = "none";
+        }
+
+        function fmtDate(v) {
+          try {
+            return new Date(v).toLocaleString();
+          } catch {
+            return String(v || "");
+          }
+        }
+
+        async function load() {
+          clearError();
+          table.style.display = "none";
+          tbody.innerHTML = "";
+
+          const token = (tokenInput.value || "").trim();
+          if (!token) {
+            showError("Enter ADMIN_TOKEN to load the waitlist");
+            return;
+          }
+          sessionStorage.setItem("ADMIN_TOKEN", token);
+
+          meta.textContent = "Loading";
+
+          try {
+            const r = await fetch("/api/waitlist", {
+              method: "GET",
+              headers: { "X-Admin-Token": token },
+            });
+            const j = await r.json().catch(() => null);
+
+            if (!r.ok) {
+              meta.textContent = "Not loaded";
+              showError((j && (j.message || j.error)) || "Request failed");
+              return;
+            }
+
+            const rows = (j && j.rows) || [];
+            rows.forEach((row) => {
+              const tr = document.createElement("tr");
+
+              const tdCreated = document.createElement("td");
+              tdCreated.textContent = fmtDate(row.created_at);
+
+              const tdName = document.createElement("td");
+              tdName.textContent = row.name || "";
+
+              const tdEmail = document.createElement("td");
+              tdEmail.textContent = row.email || "";
+
+              const tdTier = document.createElement("td");
+              tdTier.textContent = row.tier || "";
+
+              const tdLinkedIn = document.createElement("td");
+              if (row.linkedin_url) {
+                const a = document.createElement("a");
+                a.href = row.linkedin_url;
+                a.target = "_blank";
+                a.rel = "noreferrer";
+                a.textContent = "Profile";
+                tdLinkedIn.appendChild(a);
+              } else {
+                tdLinkedIn.textContent = "";
+              }
+
+              tr.appendChild(tdCreated);
+              tr.appendChild(tdName);
+              tr.appendChild(tdEmail);
+              tr.appendChild(tdTier);
+              tr.appendChild(tdLinkedIn);
+              tbody.appendChild(tr);
+            });
+
+            table.style.display = "";
+            meta.textContent = `${rows.length} signups`;
+          } catch (e) {
+            meta.textContent = "Not loaded";
+            showError("Request failed");
+          }
+        }
+
+        loadBtn.addEventListener("click", load);
+        tokenInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") load();
+        });
+        clearBtn.addEventListener("click", () => {
+          sessionStorage.removeItem("ADMIN_TOKEN");
+          tokenInput.value = "";
+          meta.textContent = "Not loaded";
+          clearError();
+          table.style.display = "none";
+          tbody.innerHTML = "";
+        });
+      })();
+    </script>
+  </body>
+</html>
