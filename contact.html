@@ -5,98 +5,384 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact — Scouthook</title>
     <meta name="description" content="Contact Scouthook — questions, partnerships, and support." />
-    <link rel="stylesheet" href="/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand: #0f766e;
+        --brand-hover: #115e59;
+        --bg-app: #f9fafb;
+        --bg-surface: #ffffff;
+        --text-heading: #09090b;
+        --text-body: #18181b;
+        --text-muted: #3f3f46;
+        --border: #e4e4e7;
+        --border-divider: #f4f4f5;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;
+        --font-body: "Inter", system-ui, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg-app);
+        color: var(--text-body);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(249, 250, 251, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-divider);
+        height: 60px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-logo img {
+        height: 30px;
+        width: auto;
+        display: block;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+
+      .nav-link:hover {
+        background: #ffffff;
+        color: var(--text-heading);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        background: transparent;
+        color: var(--text-heading);
+        transition: background 0.15s ease, border-color 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--brand-hover);
+        border-color: var(--brand-hover);
+      }
+
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      main {
+        padding: 64px 0 88px;
+      }
+
+      h1 {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: clamp(30px, 4vw, 42px);
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        color: var(--text-heading);
+        margin-bottom: 12px;
+      }
+
+      .lead {
+        font-size: 16px;
+        line-height: 1.7;
+        color: var(--text-muted);
+        max-width: 54ch;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 16px;
+        margin-top: 32px;
+        align-items: start;
+      }
+
+      .card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .card h2 {
+        font-family: var(--font-heading);
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text-heading);
+        margin-bottom: 8px;
+      }
+
+      .muted {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .email {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        margin-top: 14px;
+        font-weight: 600;
+        color: var(--text-heading);
+      }
+
+      .email:hover {
+        border-color: rgba(15, 118, 110, 0.4);
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-heading);
+        margin-bottom: 6px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 10px 14px;
+        font-size: 15px;
+        color: var(--text-heading);
+        outline: none;
+        background: #ffffff;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 140px;
+      }
+
+      .field {
+        margin-bottom: 14px;
+      }
+
+      .actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .status {
+        margin-top: 12px;
+        font-size: 14px;
+        color: var(--text-muted);
+        min-height: 20px;
+      }
+
+      .status.error {
+        color: #dc2626;
+      }
+
+      .success {
+        display: none;
+        text-align: center;
+        padding: 18px 0 6px;
+      }
+
+      .success .title {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: var(--text-heading);
+      }
+
+      .success .text {
+        margin-top: 8px;
+        font-size: 15px;
+        color: var(--text-muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--border-divider);
+        padding: 26px 0;
+      }
+
+      footer .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 880px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="wrap">
-        <a class="logo" href="/"><img src="/images/logo-light.png" alt="Scouthook" /></a>
-        <div class="site-header__actions">
-          <a class="nav-cta nav-cta--muted" href="/contact">Contact</a>
-          <a class="nav-cta" href="/early-access">Get early access →</a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-inner">
+        <a class="nav-logo" href="/" aria-label="Scouthook home">
+          <img src="/images/logo-light.png" alt="Scouthook" />
+        </a>
+        <div class="nav-links">
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/privacy">Privacy</a>
+          <a class="btn btn-primary" href="/#pricing">Start free →</a>
         </div>
       </div>
-    </header>
+    </nav>
 
-    <main class="contact-main">
-      <div class="wrap contact-wrap">
-        <header class="contact-page-header">
-          <p class="section-label">Contact</p>
-          <h1>We’d love to hear from you</h1>
-          <p class="contact-intro">
-            Questions about Scouthook, partnerships, or support — send us a note or email us directly.
-          </p>
-        </header>
+    <main>
+      <div class="container">
+        <h1>Contact Scouthook</h1>
+        <p class="lead">
+          Have a question, partnership idea, or need support? Email us directly or send a message below
+        </p>
 
-        <div class="contact-grid">
-          <div class="contact-column">
-            <section class="contact-block contact-block--email" aria-labelledby="email-heading">
-              <h2 id="email-heading">Email us</h2>
-              <p class="contact-block-lead">The fastest way to reach our team:</p>
-              <p class="contact-email-display">
-                <a href="mailto:contact@scouthook.com" class="contact-email-link">contact@scouthook.com</a>
-              </p>
-              <p class="contact-block-note">We read every message and typically respond within a few business days.</p>
-            </section>
+        <div class="grid">
+          <section class="card" aria-labelledby="email-heading">
+            <h2 id="email-heading">Email</h2>
+            <p class="muted">Fastest way to reach us</p>
+            <a class="email" href="mailto:contact@scouthook.com">contact@scouthook.com</a>
+            <p class="muted" style="margin-top: 12px">We read every message and typically respond within a few business days</p>
+          </section>
 
-            <section class="contact-block" aria-labelledby="early-heading">
-              <h2 id="early-heading">Early access</h2>
-              <p class="contact-block-text">
-                Want to join the waitlist? Tell us a bit about you and your LinkedIn profile.
-              </p>
-              <a class="btn btn--small" href="/early-access">Get early access →</a>
-            </section>
-          </div>
-
-          <section
-            class="contact-block contact-block--form"
-            aria-labelledby="form-heading"
-            id="contact-form-section"
-          >
-            <div class="contact-form-panel" id="contact-form-panel">
+          <section class="card" aria-labelledby="form-heading" id="contact-form-section">
+            <div id="contact-form-panel">
               <h2 id="form-heading">Send a message</h2>
-              <p class="contact-block-lead">All fields are required.</p>
+              <p class="muted" style="margin-bottom: 14px">Name, email, and message are required</p>
 
-              <form class="contact-form" id="contact-form" novalidate>
-                <div class="form-field">
+              <form id="contact-form" novalidate>
+                <div class="field">
                   <label for="name">Name</label>
                   <input type="text" id="name" name="name" required autocomplete="name" maxlength="200" />
                 </div>
-                <div class="form-field">
+                <div class="field">
                   <label for="email">Email address</label>
                   <input type="email" id="email" name="email" required autocomplete="email" maxlength="254" />
                 </div>
-                <div class="form-field">
+                <div class="field">
                   <label for="message">Message</label>
-                  <textarea id="message" name="message" required rows="6" maxlength="5000" placeholder="How can we help?"></textarea>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    maxlength="5000"
+                    placeholder="How can we help?"
+                  ></textarea>
                 </div>
-                <div class="form-actions">
-                  <button type="submit" class="btn" id="submit-btn">Send message</button>
+
+                <div class="actions">
+                  <button type="submit" class="btn btn-primary" id="submit-btn">Send message</button>
+                  <span class="muted" style="font-size: 13px">Replies usually within a few business days</span>
                 </div>
-                <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                <p class="status" id="form-status" role="status" aria-live="polite"></p>
               </form>
             </div>
 
-            <div class="contact-success-panel" id="contact-success-panel" hidden>
-              <p class="contact-success-title" id="contact-success-heading" tabindex="-1">Thank you</p>
-              <p class="contact-success-text">
-                Your message was sent. We’ll get back to you soon.
-              </p>
+            <div class="success" id="contact-success-panel">
+              <div class="title" id="contact-success-heading" tabindex="-1">Thank you</div>
+              <div class="text">Your message was sent. We’ll get back to you soon</div>
+              <div style="margin-top: 16px">
+                <a class="btn" href="/">Back to home</a>
+              </div>
             </div>
           </section>
         </div>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="wrap">
-        <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
-        <span class="sep" aria-hidden="true">·</span>
+    <footer>
+      <div class="container foot">
         <span>© 2025 Scouthook</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/contact">Contact</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/privacy">Privacy Policy</a>
+        <span>
+          <a href="/privacy">Privacy</a>
+          <span aria-hidden="true"> · </span>
+          <a href="/contact">Contact</a>
+        </span>
       </div>
     </footer>
 
@@ -111,7 +397,7 @@
 
         function setStatus(msg, isError) {
           statusEl.textContent = msg || "";
-          statusEl.classList.toggle("form-status--error", !!isError);
+          statusEl.classList.toggle("error", !!isError);
         }
 
         form.addEventListener("submit", async function (e) {
@@ -150,9 +436,11 @@
 
             if (res.ok && data.ok) {
               form.reset();
-              formPanel.hidden = true;
-              successPanel.hidden = false;
-              document.getElementById("contact-form-section").setAttribute("aria-labelledby", "contact-success-heading");
+              formPanel.style.display = "none";
+              successPanel.style.display = "block";
+              document
+                .getElementById("contact-form-section")
+                .setAttribute("aria-labelledby", "contact-success-heading");
               successHeading.focus();
             } else {
               setStatus(data.error || "Something went wrong. Please try again.", true);
