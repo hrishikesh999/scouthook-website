@@ -248,6 +248,37 @@
         width: 100%;
       }
 
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.82);
+        padding: 8px 10px;
+        border-radius: 8px;
+        transition: background 0.15s ease, color 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      nav.nav-scrolled .nav-link {
+        color: rgba(255, 255, 255, 0.82);
+      }
+
       .nav-logo {
         display: inline-flex;
         align-items: center;
@@ -1136,7 +1167,14 @@
         <a class="nav-logo" href="/">
           <img src="/images/logo-light.png" alt="Scouthook" />
         </a>
-        <a href="#" class="nav-cta waitlist-cta">Start free →</a>
+        <div class="nav-right">
+          <div class="nav-links" aria-label="Primary navigation">
+            <a class="nav-link" href="#features">Features</a>
+            <a class="nav-link" href="#pricing">Pricing</a>
+            <a class="nav-link" href="/contact">Contact</a>
+          </div>
+          <a href="#" class="nav-cta waitlist-cta">Start free →</a>
+        </div>
       </div>
     </nav>
 
@@ -1314,7 +1352,7 @@
         </div>
       </section>
 
-      <section class="section-features">
+      <section class="section-features" id="features">
         <div class="container">
           <span class="section-tag">What's inside</span>
           <h2>Everything that separates signal from noise</h2>
@@ -1447,7 +1485,17 @@
     <footer>
       <div class="container footer-inner">
         <span>© 2025 Scouthook</span>
-        <span>Built for people who sell expertise</span>
+        <span style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; text-align: right">
+          <a href="#features">Features</a>
+          <span aria-hidden="true">·</span>
+          <a href="#pricing">Pricing</a>
+          <span aria-hidden="true">·</span>
+          <a href="/contact">Contact</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://app.scouthook.com/privacy.html" target="_blank" rel="noreferrer">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://app.scouthook.com/terms.html" target="_blank" rel="noreferrer">Terms of Use</a>
+        </span>
       </div>
     </footer>
 
