@@ -40,6 +40,16 @@ body.legal-body {
     linear-gradient(135deg, #0a2420 0%, #071a18 72%);
 }
 
+/* Legal pages: full-contrast body copy on dark gradient */
+body.legal-body .privacy-main p,
+body.legal-body .privacy-main li {
+  color: #ffffff;
+}
+
+body.legal-body .privacy-main .updated {
+  color: rgba(240, 244, 255, 0.82);
+}
+
 a {
   color: var(--accent-light);
   text-decoration: none;
