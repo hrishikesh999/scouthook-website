@@ -8,6 +8,7 @@
   "rewrites": [
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/refund", "destination": "/refund.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/early-access/thanks", "destination": "/early-access/thanks.html" },
     { "source": "/early-access", "destination": "/early-access.html" }
