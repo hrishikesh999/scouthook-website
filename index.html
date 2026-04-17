@@ -8,6 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/styles.css" />
     <style>
       :root {
         --brand: #0f766e;
@@ -1162,21 +1163,17 @@
     </style>
   </head>
   <body>
-    <nav id="site-nav">
-      <div class="nav-container nav-inner">
-        <a class="nav-logo" href="/">
-          <img src="/images/logo-light.png" alt="Scouthook" />
-        </a>
-        <div class="nav-right">
-          <div class="nav-links" aria-label="Primary navigation">
-            <a class="nav-link" href="#features">Features</a>
-            <a class="nav-link" href="#pricing">Pricing</a>
-            <a class="nav-link" href="/contact">Contact</a>
-          </div>
-          <a href="#" class="nav-cta waitlist-cta">Start free →</a>
+    <header class="site-header" id="site-nav">
+      <div class="wrap">
+        <a class="logo" href="/"><img src="/images/logo-light.png" alt="Scouthook" /></a>
+        <div class="site-header__actions" aria-label="Primary navigation">
+          <a class="nav-cta nav-cta--muted" href="#features">Features</a>
+          <a class="nav-cta nav-cta--muted" href="#pricing">Pricing</a>
+          <a class="nav-cta nav-cta--muted" href="/contact">Contact</a>
+          <a href="/?waitlist=1" class="nav-cta waitlist-cta">Start free →</a>
         </div>
       </div>
-    </nav>
+    </header>
 
     <main>
       <section class="hero">
@@ -1481,22 +1478,23 @@
       </section>
     </main>
 
-    <footer>
-      <div class="container footer-inner">
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
+        <span class="sep" aria-hidden="true">·</span>
         <span>© 2025 Scouthook</span>
-        <span style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; text-align: right">
-          <a href="#features">Features</a>
-          <span aria-hidden="true">·</span>
-          <a href="#pricing">Pricing</a>
-          <span aria-hidden="true">·</span>
-          <a href="/contact">Contact</a>
-          <span aria-hidden="true">·</span>
-          <a href="/privacy">Privacy Policy</a>
-          <span aria-hidden="true">·</span>
-          <a href="/terms">Terms of Service</a>
-          <span aria-hidden="true">·</span>
-          <a href="/refund">Refund Policy</a>
-        </span>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/#features">Features</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/#pricing">Pricing</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/contact">Contact</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/privacy">Privacy Policy</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/terms">Terms of Service</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/refund">Refund Policy</a>
       </div>
     </footer>
 
@@ -1862,6 +1860,14 @@
             openModal();
           });
         });
+
+        // Deep-link support so other pages can send users to the waitlist modal.
+        try {
+          const u = new URL(window.location.href);
+          if (u.searchParams.get("waitlist") === "1") openModal();
+        } catch {
+          /* ignore */
+        }
 
         closeBtn.addEventListener("click", closeModal);
 
