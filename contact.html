@@ -6,16 +6,17 @@
     <title>Contact — Scouthook</title>
     <meta name="description" content="Contact Scouthook — questions, partnerships, and support." />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/site-nav.js" defer></script>
   </head>
   <body class="legal-body">
-    <header class="site-header">
+    <header class="site-header" id="site-nav">
       <div class="wrap">
         <a class="logo" href="/"><img src="/images/logo-light.png" alt="Scouthook" /></a>
-        <div class="site-header__actions">
+        <div class="site-header__actions" aria-label="Primary navigation">
           <a class="nav-cta nav-cta--muted" href="/#features">Features</a>
           <a class="nav-cta nav-cta--muted" href="/#pricing">Pricing</a>
-          <a class="nav-cta nav-cta--muted" href="/contact">Contact</a>
-          <a class="nav-cta" href="/?waitlist=1">Start free →</a>
+          <a class="nav-cta nav-cta--muted" href="/contact.html">Contact</a>
+          <a class="nav-cta waitlist-cta" href="/?waitlist=1">Start free →</a>
         </div>
       </div>
     </header>
@@ -87,7 +88,7 @@
         <span class="sep" aria-hidden="true">·</span>
         <a href="/#pricing">Pricing</a>
         <span class="sep" aria-hidden="true">·</span>
-        <a href="/contact">Contact</a>
+        <a href="/contact.html">Contact</a>
         <span class="sep" aria-hidden="true">·</span>
         <a href="/privacy">Privacy Policy</a>
         <span class="sep" aria-hidden="true">·</span>
@@ -147,7 +148,8 @@
 
             if (res.ok && data.ok) {
               form.reset();
-              if (formPanel) formPanel.parentElement && formPanel.parentElement.setAttribute("hidden", "");
+              /* Hide only the form panel — not the parent section (success panel is a sibling inside it). */
+              if (formPanel) formPanel.setAttribute("hidden", "");
               if (successPanel) successPanel.removeAttribute("hidden");
               document
                 .getElementById("contact-form-section")

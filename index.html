@@ -9,8 +9,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/site-nav.js" defer></script>
     <style>
       :root {
+        /* Main content rail (~20% narrower than 1120px); hero keeps full 1120px */
+        --layout-max: 896px;
+        --hero-layout-max: 1120px;
+
         --brand: #0f766e;
         --brand-hover: #115e59;
         --accent: #10b981;
@@ -89,7 +94,7 @@
       }
 
       h2 {
-        font-size: clamp(19px, 2.4vw, 27px);
+        font-size: clamp(23px, 2.88vw, 32px);
         font-weight: 700;
         letter-spacing: -0.02em;
         line-height: 1.25;
@@ -97,7 +102,7 @@
       }
 
       h3 {
-        font-size: 17px;
+        font-size: 21px;
         font-weight: 700;
         letter-spacing: -0.01em;
         color: var(--text-heading);
@@ -112,7 +117,7 @@
 
       /* Light sections typography (below hero only) */
       main section:not(.hero) h2 {
-        font-size: clamp(26px, 3.2vw, 35px);
+        font-size: clamp(31px, 3.84vw, 42px);
         font-weight: 700;
         font-family: var(--font-heading);
         letter-spacing: -0.02em;
@@ -120,7 +125,7 @@
       }
 
       main section:not(.hero) h3 {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 700;
         font-family: var(--font-heading);
         letter-spacing: -0.01em;
@@ -176,13 +181,13 @@
       }
 
       .container {
-        max-width: 780px;
+        max-width: var(--layout-max);
         margin: 0 auto;
         padding: 0 24px;
       }
 
       .nav-shell {
-        max-width: 1120px;
+        max-width: var(--layout-max);
         margin: 0 auto;
         padding: 0 24px;
         width: 100%;
@@ -293,7 +298,7 @@
       }
 
       .nav-container {
-        max-width: 1100px;
+        max-width: var(--layout-max);
         margin: 0 auto;
         padding: 0 32px;
         width: 100%;
@@ -343,24 +348,24 @@
           linear-gradient(135deg, #0a2420 0%, #071a18 72%);
         border-bottom: none;
         overflow: hidden;
-        padding-top: 140px;
+        padding-top: 132px;
         padding-bottom: 0;
       }
 
       .hero-inner {
-        max-width: 1100px;
+        max-width: var(--hero-layout-max);
         margin: 0 auto;
-        padding: 0;
+        padding: 0 24px;
       }
 
       .hero-text {
         text-align: center;
-        max-width: 680px;
         margin: 0 auto;
         padding-bottom: 56px;
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 0;
+        padding-right: 0;
         overflow: visible;
+        width: 100%;
       }
 
       .hero-tag {
@@ -378,18 +383,49 @@
         background: rgba(15, 118, 110, 0.26);
       }
 
-      .hero-h1 {
+      .hero h1.hero-h1 {
         font-family: var(--font-heading);
-        font-size: clamp(32px, 4.5vw, 40px);
+        font-size: clamp(37px, 5.175vw, 46px);
         font-weight: 800;
         letter-spacing: -0.02em;
-        line-height: 1.1;
+        line-height: 1.28;
         color: #ffffff;
         margin-bottom: 24px;
         text-align: center;
+        display: block;
+        width: 100%;
+        max-width: var(--hero-layout-max);
         margin-left: auto;
         margin-right: auto;
+      }
+
+      .hero-h1-scribble {
+        position: relative;
         display: inline-block;
+        isolation: isolate;
+        z-index: 0;
+        padding: 0 0.06em 0.05em;
+        margin: 0 -0.04em;
+      }
+
+      .hero-h1-scribble::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: -0.02em;
+        right: -0.02em;
+        bottom: 0.1em;
+        height: 0.14em;
+        min-height: 4px;
+        max-height: 7px;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          rgba(45, 212, 191, 0.35) 0%,
+          rgba(45, 212, 191, 0.58) 48%,
+          rgba(45, 212, 191, 0.38) 100%
+        );
+        pointer-events: none;
       }
 
       .hero-highlight {
@@ -413,10 +449,16 @@
         font-size: 20px;
         line-height: 1.65;
         color: rgba(255, 255, 255, 0.88);
-        max-width: 680px;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 36px;
+      }
+
+      .hero-note {
+        margin-top: 14px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.72);
       }
 
       .hero-cta {
@@ -442,25 +484,6 @@
 
       .btn-hero-primary:hover {
         background: #f0fdf9;
-      }
-
-      .nav-cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        font-weight: 600;
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-        background: transparent;
-        transition: background 0.15s ease, border-color 0.15s ease;
-        white-space: nowrap;
-      }
-
-      .nav-cta:hover {
-        background: rgba(255, 255, 255, 0.1);
       }
 
       .hero-screenshot-wrap {
@@ -515,8 +538,9 @@
           padding-top: 100px;
         }
 
-        .hero-h1 {
-          font-size: 28px;
+        .hero h1.hero-h1 {
+          font-size: 32px;
+          line-height: 1.3;
           white-space: normal;
         }
 
@@ -525,8 +549,8 @@
         }
 
         .hero-text {
-          padding-left: 16px;
-          padding-right: 16px;
+          padding-left: 0;
+          padding-right: 0;
         }
 
         .hero-screenshot-wrap {
@@ -550,14 +574,7 @@
       */
       /* ── Legacy hero styles removed via overrides above ── */
 
-      @media (min-width: 768px) {
-        .hero-h1 {
-          white-space: nowrap;
-          position: relative;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-      }
+      /* Allow hero headline to wrap naturally on desktop too */
 
       .split-panel {
         max-width: 640px;
@@ -632,175 +649,6 @@
       .muted-paragraph {
         color: var(--text-muted);
         margin-top: 10px;
-      }
-
-      /* Pillar cards: styles live under .section-solution only (see below) */
-
-      section.section-solution {
-        background: #0d1117;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      }
-
-      section.section-solution .section-tag {
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 4px 12px;
-        display: inline-block;
-        margin-bottom: 28px;
-        background: transparent;
-      }
-
-      /* .container in selector beats main section:not(.hero) h2 / p specificity */
-      main section.section-solution .container > h2 {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        font-size: clamp(28px, 3.2vw, 38px);
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-        color: #ffffff;
-      }
-
-      main section.section-solution .container > h2 + p {
-        font-size: 18px;
-        line-height: 1.65;
-        color: rgba(255, 255, 255, 0.75);
-        max-width: 580px;
-      }
-
-      section.section-solution .pillars-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 20px;
-        margin-top: 40px;
-      }
-
-      section.section-solution .pillar-card {
-        background: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 28px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-      }
-
-      section.section-solution .pillar-emoji {
-        font-size: 28px;
-        display: block;
-        margin-bottom: 16px;
-      }
-
-      main section.section-solution .pillar-card h3 {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        font-size: 18px;
-        color: #09090b;
-        letter-spacing: -0.01em;
-        margin-bottom: 8px;
-      }
-
-      main section.section-solution .pillar-card p {
-        font-size: 15px;
-        color: #3f3f46;
-        line-height: 1.65;
-        margin: 0;
-      }
-
-      section.section-solution .pillars-note {
-        margin-top: 32px;
-        font-size: 15px;
-        color: rgba(255, 255, 255, 0.45);
-        font-style: italic;
-        text-align: center;
-      }
-
-      @media (max-width: 768px) {
-        section.section-solution {
-          padding: 64px 0;
-        }
-
-        section.section-solution .pillar-card {
-          padding: 20px;
-        }
-
-        section.section-solution .pillars-note {
-          text-align: left;
-        }
-      }
-
-      .demo-block {
-        background: var(--bg-surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 32px;
-        box-shadow: var(--shadow-sm);
-        margin-top: 32px;
-      }
-
-      .demo-step {
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-        padding: 20px 0;
-      }
-
-      .demo-step:first-of-type {
-        padding-top: 0;
-      }
-
-      .demo-step:last-of-type {
-        padding-bottom: 0;
-      }
-
-      .demo-divider {
-        height: 1px;
-        background: var(--border-divider);
-      }
-
-      .step-circle {
-        width: 28px;
-        height: 28px;
-        min-width: 28px;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-muted);
-        margin-top: 2px;
-      }
-
-      .step-label {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 6px;
-      }
-
-      .step-text {
-        font-size: 15px;
-        color: var(--text-heading);
-        line-height: 1.6;
-      }
-
-      .step-text-italic {
-        font-style: italic;
-        font-weight: 400;
-      }
-
-      .step-text-medium {
-        font-weight: 500;
-      }
-
-      .demo-cta {
-        margin-top: 24px;
       }
 
       .comparison-wrapper {
@@ -1026,11 +874,6 @@
         font-size: 16px;
       }
 
-      footer {
-        padding: 32px 0;
-        border-top: 1px solid var(--border-divider);
-      }
-
       .footer-inner {
         display: flex;
         justify-content: space-between;
@@ -1077,88 +920,441 @@
         }
       }
 
-      /* ========== Features section (.section-features) — scoped only ========== */
-      section.section-features {
+      /* ========== Homepage sections (new copy) ========== */
+      /* ========== How it works + What you get (new homepage copy) ========== */
+      section.section-how-it-works {
+        background: radial-gradient(900px 560px at 20% 10%, rgba(15, 118, 110, 0.24), rgba(15, 118, 110, 0) 60%),
+          radial-gradient(800px 520px at 85% 80%, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0) 58%),
+          linear-gradient(135deg, #062824 0%, #071a18 70%);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      section.section-how-it-works .section-tag {
+        color: rgba(255, 255, 255, 0.75);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      section.section-how-it-works h2 {
+        color: #ffffff;
+      }
+
+      section.section-how-it-works .container > p {
+        color: rgba(255, 255, 255, 0.84);
+      }
+
+      .how-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 36px;
+        position: relative;
+      }
+
+      .how-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-lg);
+        padding: 30px;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(10px);
+        position: relative;
+        transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+
+      .how-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(16, 185, 129, 0.35);
+        background: rgba(255, 255, 255, 0.075);
+      }
+
+      .how-step {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: rgba(9, 9, 11, 0.92);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.01em;
+        text-transform: none;
+        margin-bottom: 12px;
+      }
+
+      /* (No numeric badge inside the step pill) */
+
+      .how-title {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 22px;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      .how-desc {
+        font-size: 17px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .how-footnote {
+        margin-top: 22px;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* (No connector arrows between steps) */
+
+      section.section-what-you-get {
         background: #f9fafb;
       }
 
-      main section.section-features .container > .section-tag {
-        font-size: 13px;
-        font-weight: 600;
+      .zigzag {
+        margin-top: 64px;
+        display: grid;
+        gap: 84px;
+      }
+
+      .zigzag-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      /* Let columns shrink below intrinsic image width (grid default min-width: auto breaks layout) */
+      .zigzag-text,
+      .zigzag-visual {
+        min-width: 0;
+      }
+
+      .zigzag-visual {
+        align-self: stretch;
+      }
+
+      .zigzag-row:nth-child(even) .zigzag-text {
+        order: 2;
+      }
+
+      .zigzag-row:nth-child(even) .zigzag-visual {
+        order: 1;
+      }
+
+      .zigzag-text h3 {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 41px;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+        color: var(--text-heading);
+      }
+
+      .zigzag-kicker {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+
+      .zigzag-text p {
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--text-body);
+      }
+
+      .shot-frame {
+        border: none;
+        border-radius: 18px;
+        padding: 0;
+        background: transparent;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .shot-frame img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0;
+      }
+
+      /* Idea Vault: tighter row + left/top–anchored zoom. tall-shot rows: Idea Vault frame ratio + right/top crop + zoom (Hook, Quality score, Visual generation). */
+      .zigzag-row.zigzag-row--idea-vault,
+      .zigzag-row.zigzag-row--tall-shot {
+        gap: clamp(28px, 3.5vw, 44px);
+      }
+
+      @media (min-width: 881px) {
+        .zigzag-row.zigzag-row--idea-vault .zigzag-visual,
+        .zigzag-row.zigzag-row--tall-shot .zigzag-visual {
+          margin: 0 -18px 0 0;
+        }
+
+        .zigzag-row.zigzag-row--idea-vault .shot-frame,
+        .zigzag-row.zigzag-row--tall-shot .shot-frame {
+          box-shadow: 0 22px 64px rgba(0, 0, 0, 0.2);
+        }
+
+        .zigzag-row.zigzag-row--idea-vault .shot-frame img {
+          width: 100%;
+          max-width: none;
+          transform: scale(1.12);
+          transform-origin: left top;
+        }
+
+        /* Shorter/wider assets: match Idea Vault frame height (1600×1000), show right, zoom */
+        .zigzag-row.zigzag-row--tall-shot .shot-frame {
+          aspect-ratio: 1600 / 1000;
+        }
+
+        .zigzag-row.zigzag-row--tall-shot .shot-frame img {
+          width: 100%;
+          height: 100%;
+          max-width: none;
+          object-fit: cover;
+          object-position: right top;
+          transform: scale(1.075);
+          transform-origin: right top;
+        }
+      }
+
+      @media (max-width: 880px) {
+        .zigzag-row.zigzag-row--idea-vault,
+        .zigzag-row.zigzag-row--tall-shot {
+          gap: 40px;
+        }
+
+        .zigzag-row.zigzag-row--idea-vault .shot-frame img {
+          transform: scale(1.05);
+          transform-origin: left top;
+        }
+
+        .zigzag-row.zigzag-row--tall-shot .shot-frame {
+          aspect-ratio: 1600 / 1000;
+        }
+
+        .zigzag-row.zigzag-row--tall-shot .shot-frame img {
+          width: 100%;
+          height: 100%;
+          max-width: none;
+          object-fit: cover;
+          object-position: right top;
+          transform: scale(1.008);
+          transform-origin: right top;
+        }
+      }
+
+      /* FAQ */
+      section.section-faq {
+        background: #ffffff;
+      }
+
+      .faq-list {
+        margin-top: 26px;
+        display: grid;
+        gap: 12px;
+      }
+
+      details.faq-item {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--bg-surface);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+      }
+
+      details.faq-item summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        font-weight: 700;
+        color: var(--text-heading);
+      }
+
+      details.faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq-chevron {
+        width: 18px;
+        height: 18px;
+        border-right: 2px solid var(--text-muted);
+        border-bottom: 2px solid var(--text-muted);
+        transform: rotate(45deg);
+        transition: transform 0.15s ease;
+        flex: none;
+      }
+
+      details.faq-item[open] .faq-chevron {
+        transform: rotate(225deg);
+      }
+
+      .faq-body {
+        padding: 0 18px 16px;
+        color: var(--text-body);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      /* Pricing list formatting */
+      .pricing-features-list {
+        margin: 0;
+        padding-left: 18px;
+        line-height: 1.9;
+        font-size: 14px;
+        color: var(--text-body);
+      }
+
+      .pricing-not-included {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-divider);
+      }
+
+      .pricing-not-included-title {
+        font-size: 12px;
+        font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: #3f3f46;
-        border: 1px solid #e4e4e7;
-        border-radius: 8px;
-        padding: 4px 12px;
-        display: inline-block;
-        margin-bottom: 28px;
-      }
-
-      main section.section-features .container > h2 {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        font-size: clamp(28px, 3.2vw, 38px);
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-        color: #09090b;
-        margin-bottom: 40px;
-      }
-
-      .section-features .features-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-top: 40px;
-      }
-
-      .section-features .feature-card-dark {
-        background: #0d1117;
-        border-radius: 12px;
-        padding: 28px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-      }
-
-      .section-features .feature-card-icon {
-        width: 32px;
-        height: 32px;
-        display: block;
-        margin-bottom: 16px;
-      }
-
-      .section-features .feature-card-icon svg {
-        width: 32px;
-        height: 32px;
-        display: block;
-      }
-
-      .section-features .feature-card-name {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        font-size: 18px;
-        color: #ffffff;
-        letter-spacing: -0.01em;
+        color: var(--text-muted);
         margin-bottom: 8px;
+      }
+
+      .founding-offer {
+        margin-top: 28px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 640px;
+        text-align: center;
+        border-radius: 18px;
+        padding: 26px 28px;
+        border: 1px solid rgba(217, 119, 6, 0.45);
+        background: linear-gradient(
+          165deg,
+          rgba(254, 243, 199, 0.98) 0%,
+          rgba(253, 230, 138, 0.92) 42%,
+          rgba(251, 191, 36, 0.35) 100%
+        );
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.65) inset,
+          0 18px 44px rgba(15, 118, 110, 0.12),
+          0 6px 16px rgba(245, 158, 11, 0.18);
+      }
+
+      .founding-offer strong {
         display: block;
+        font-family: var(--font-heading);
+        font-size: clamp(17px, 2.1vw, 20px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #78350f;
+        line-height: 1.25;
       }
 
-      main section.section-features .feature-card-desc {
-        font-family: var(--font-body);
+      .founding-offer p {
+        margin-top: 12px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 52ch;
         font-size: 15px;
-        color: rgba(255, 255, 255, 0.7);
+        color: #451a03;
         line-height: 1.65;
-        margin: 0;
       }
 
-      @media (max-width: 768px) {
-        .section-features .features-grid {
+      @media (max-width: 960px) {
+        .how-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 880px) {
+        .zigzag-row {
           grid-template-columns: 1fr;
         }
 
-        .section-features .feature-card-dark {
-          padding: 20px;
+        .zigzag-row:nth-child(even) .zigzag-text,
+        .zigzag-row:nth-child(even) .zigzag-visual {
+          order: initial;
         }
+
+        .zigzag {
+          gap: 52px;
+        }
+      }
+
+      /* Final CTA should be on a dark background */
+      section.section-final-cta {
+        background: radial-gradient(900px 560px at 20% 20%, rgba(15, 118, 110, 0.22), rgba(15, 118, 110, 0) 60%),
+          linear-gradient(135deg, #0a2420 0%, #071a18 72%);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      section.section-final-cta .final-cta-block {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+      }
+
+      section.section-final-cta .final-cta-block h2 {
+        color: #ffffff;
+      }
+
+      section.section-final-cta .final-cta-block p {
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      section.section-final-cta .pricing-footnote {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* Footer: dark band directly under final CTA (same palette as section-final-cta) */
+      main > footer.site-footer {
+        margin-top: 0;
+        padding: 28px 0 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, #071a18 0%, #050f0e 100%);
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 12px;
+      }
+
+      main > footer.site-footer .wrap {
+        justify-content: center;
+        gap: 0.35rem 0.6rem;
+        row-gap: 0.4rem;
+      }
+
+      main > footer.site-footer a {
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      main > footer.site-footer a:hover {
+        color: #ffffff;
+      }
+
+      main > footer.site-footer .sep {
+        color: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+      }
+
+      main > footer.site-footer .logo--footer img {
+        opacity: 0.95;
       }
     </style>
   </head>
@@ -1169,7 +1365,7 @@
         <div class="site-header__actions" aria-label="Primary navigation">
           <a class="nav-cta nav-cta--muted" href="#features">Features</a>
           <a class="nav-cta nav-cta--muted" href="#pricing">Pricing</a>
-          <a class="nav-cta nav-cta--muted" href="/contact">Contact</a>
+          <a class="nav-cta nav-cta--muted" href="/contact.html">Contact</a>
           <a href="/?waitlist=1" class="nav-cta waitlist-cta">Start free →</a>
         </div>
       </div>
@@ -1179,13 +1375,17 @@
       <section class="hero">
         <div class="hero-inner">
           <div class="hero-text">
-            <h1 class="hero-h1">Turn Your LinkedIn into a Client Pipeline</h1>
+            <h1 class="hero-h1">
+              Turn Your Knowledge into LinkedIn Posts<br>
+              <span class="hero-h1-scribble">that Get Noticed</span>
+            </h1>
             <p class="hero-sub">
-              Scouthook helps consultants and fractional executives create content that attracts serious inbound.
+              No blank page. No ghostwriter. No generic AI.
             </p>
             <div class="hero-cta">
-              <a href="#" class="btn-hero-primary waitlist-cta">Get Early Access</a>
+              <a href="#" class="btn-hero-primary waitlist-cta">Get early access</a>
             </div>
+            <div class="hero-note">Free to start. No credit card required.</div>
           </div>
 
           <div class="hero-screenshot-wrap">
@@ -1203,300 +1403,288 @@
 
       <section>
         <div class="container">
-          <span class="section-tag">Why most LinkedIn content fails</span>
-          <h2>Most LinkedIn content is written for attention. The best is written for decisions</h2>
-          <p class="problem-paragraph">
-            You're posting. You're getting engagement. But the consultants landing $20K–$50K retainers from LinkedIn aren't posting more than you, they're posting differently.
-          </p>
-
-          <ul class="bullet-list" aria-label="Common problems">
-            <li>You write something genuinely insightful → nothing happens</li>
-            <li>You can't tell if your content attracts buyers or just peers</li>
-            <li>AI tools make everything sound the same</li>
-            <li>People with less experience are getting better inbound</li>
-          </ul>
-
-          <div class="anchor-line">The problem isn't your consistency. It's your signal</div>
-          <p class="muted-paragraph">Generic content gets attention. Signal gets clients</p>
+          <span class="section-tag">The problem</span>
+          <h2>Your ideas are not the problem</h2>
+          <p class="problem-paragraph">You write a post. You put real thought into it. You hit publish and nothing happens.</p>
+          <p class="problem-paragraph">No comments. No DMs. No new connections. Just silence.</p>
+          <p class="problem-paragraph">So you try again. You experiment. You post inconsistently. Eventually you stop because nothing seems to work and the effort feels pointless.</p>
+          <div class="anchor-line">Average LinkedIn posts are written to share ideas. Great LinkedIn posts are created to elicit emotion.</div>
+          <p class="muted-paragraph">The difference is not what you say, it's how it's shaped.</p>
+          <p class="muted-paragraph">The hook that stops the scroll. The angle that makes your reader feel seen. When you get that right, people not only react to your post, they reach out to you thinking: “this is the expert I have been looking for.”</p>
         </div>
       </section>
 
-      <section class="section-solution">
+      <section class="section-how-it-works">
         <div class="container">
-          <span class="section-tag">How Scouthook works</span>
-          <h2>Content that turns into conversations with buyers</h2>
-          <p>Not impressions. Not vanity metrics. Actual inbound from people worth closing</p>
+          <span class="section-tag">How it works</span>
+          <h2>From raw thought to ready post - in seconds</h2>
+          <p>No prompting. No editing. No staring at a blank page.</p>
 
-          <div class="pillars-grid">
-            <div class="pillar-card">
-              <span class="pillar-emoji" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M16 4 C10 4 6 8 6 13 C6 17 8 20 12 21.5 L12 26 L20 26 L20 21.5 C24 20 26 17 26 13 C26 8 22 4 16 4 Z"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linejoin="round"
-                  />
-                  <line x1="12" y1="26" x2="20" y2="26" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <line x1="13" y1="29" x2="19" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <line x1="16" y1="8" x2="16" y2="14" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
-                  <line x1="13" y1="11" x2="19" y2="11" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </span>
-              <h3>Think clearly</h3>
-              <p>Finds the strongest angle in your idea automatically — no blank page, no guesswork</p>
+          <div class="how-grid" aria-label="How Scouthook works">
+            <div class="how-card">
+              <div class="how-step">Step 1</div>
+              <div class="how-title">Type a thought or upload a document</div>
+              <div class="how-desc">A vague idea, a lesson from your week, or a doc from your Idea Vault.</div>
             </div>
-            <div class="pillar-card">
-              <span class="pillar-emoji" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M6 26 L10 22 L24 8 C25.1 6.9 26.9 6.9 28 8 C29.1 9.1 29.1 10.9 28 12 L14 26 Z"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linejoin="round"
-                  />
-                  <line x1="6" y1="26" x2="11" y2="21" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <line x1="4" y1="28" x2="10" y2="28" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <line x1="21" y1="11" x2="25" y2="15" stroke="#10B981" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </span>
-              <h3>Write with authority</h3>
-              <p>Voice fingerprint ensures every post sounds like you at your best — not AI, not templates</p>
+
+            <div class="how-card">
+              <div class="how-step">Step 2</div>
+              <div class="how-title">Scouthook finds the hook, the angle, and the story</div>
+              <div class="how-desc">Your raw input is shaped into a post designed to stop the scroll.</div>
             </div>
-            <div class="pillar-card">
-              <span class="pillar-emoji" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 6 C10 6 10 14 10 18 C10 22 13 24 16 24 C19 24 22 22 22 18 C22 14 22 6 22 6"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M10 6 C10 6 13 4 16 4 C19 4 22 6 22 6"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linecap="round"
-                  />
-                  <line x1="16" y1="24" x2="16" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <line x1="12" y1="29" x2="20" y2="29" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <path d="M7 10 C4 12 4 20 7 22" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round" />
-                  <path d="M25 10 C28 12 28 20 25 22" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round" />
-                </svg>
-              </span>
-              <h3>Attract the right clients</h3>
-              <p>Every post checked before you see it — weak hooks, clichés, and low-signal phrasing removed</p>
+
+            <div class="how-card">
+              <div class="how-step">Step 3</div>
+              <div class="how-title">Your quality score tells you it's ready</div>
+              <div class="how-desc">If it passes, publish. If not, you get precise feedback on what to fix.</div>
             </div>
           </div>
 
-          <p class="pillars-note">Because signal — not volume — is what drives inbound</p>
+          <div class="how-footnote">Publish directly to LinkedIn or schedule up to 30 days ahead, without leaving Scouthook.</div>
         </div>
       </section>
 
-      <section id="demo">
+      <section class="section-what-you-get" id="features">
         <div class="container">
-          <span class="section-tag">See it in action</span>
-          <h2>From rough idea to client-ready post, in under 60 seconds</h2>
+          <span class="section-tag">What you get</span>
+          <h2>Everything you need to show up and stand out</h2>
+          <p>Five things that make Scouthook different from every other LinkedIn tool.</p>
 
-          <div class="demo-block">
-            <div class="demo-step">
-              <div class="step-circle">1</div>
-              <div>
-                <div class="step-label">You write</div>
-                <div class="step-text step-text-italic">"Most clients don't have a strategy problem. They have a courage problem."</div>
+          <div class="zigzag">
+            <div class="zigzag-row zigzag-row--idea-vault">
+              <div class="zigzag-text">
+                <div class="zigzag-kicker">Idea Vault</div>
+                <h3>Your ideas never run out</h3>
+                <p>Upload your documents, reports, and articles. Scouthook mines them for post-worthy insights so you always have something meaningful to say.</p>
               </div>
-            </div>
-            <div class="demo-divider" aria-hidden="true"></div>
-            <div class="demo-step">
-              <div class="step-circle">2</div>
-              <div>
-                <div class="step-label">Scouthook structures it</div>
-                <div class="step-text">Contrarian hook · Challenge belief → reveal real issue → invite reflection</div>
-              </div>
-            </div>
-            <div class="demo-divider" aria-hidden="true"></div>
-            <div class="demo-step">
-              <div class="step-circle">3</div>
-              <div>
-                <div class="step-label">Quality gate</div>
-                <div class="badges-row" style="margin-top: 6px">
-                  <span class="badge badge-green">✓ No clichés</span>
-                  <span class="badge badge-green">✓ No AI language</span>
-                  <span class="badge badge-green">✓ Strong hook</span>
-                  <span class="badge badge-green">✓ Buyer signal: High</span>
-                  <span class="badge badge-neutral">Score: 94/100</span>
+              <div class="zigzag-visual">
+                <div class="shot-frame">
+                  <img src="/images/what-you-get/idea-vault.png" alt="Idea Vault screenshot" />
                 </div>
               </div>
             </div>
-            <div class="demo-divider" aria-hidden="true"></div>
-            <div class="demo-step">
-              <div class="step-circle">4</div>
-              <div>
-                <div class="step-label">You publish</div>
-                <div class="step-text step-text-medium">Knowing it will attract the right people, not just likes.</div>
+
+            <div class="zigzag-row zigzag-row--tall-shot">
+              <div class="zigzag-text">
+                <div class="zigzag-kicker">Hook &amp; story engine</div>
+                <h3>Every post is built to stop the scroll</h3>
+                <p>Scouthook identifies the strongest hook, angle, and narrative from your raw input, shaping it into a post your ideal clients can't ignore.</p>
+              </div>
+              <div class="zigzag-visual">
+                <div class="shot-frame">
+                  <img src="/images/what-you-get/hook-story-engine.png" alt="Hook and story engine screenshot" />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="demo-cta">
-            <a href="#" class="btn btn-primary waitlist-cta">Try it with your next idea →</a>
-          </div>
-        </div>
-      </section>
+            <div class="zigzag-row zigzag-row--tall-shot">
+              <div class="zigzag-text">
+                <div class="zigzag-kicker">Quality score</div>
+                <h3>You always know when it's ready</h3>
+                <p>No more second-guessing before you hit publish. Your post is scored against 15+ quality checks. If it passes, it's ready. If not, you get precise feedback on exactly what to fix.</p>
+              </div>
+              <div class="zigzag-visual">
+                <div class="shot-frame">
+                  <img src="/images/what-you-get/quality-score.png" alt="Quality score screenshot" />
+                </div>
+              </div>
+            </div>
 
-      <section class="section-features" id="features">
-        <div class="container">
-          <span class="section-tag">What's inside</span>
-          <h2>Everything that separates signal from noise</h2>
+            <div class="zigzag-row zigzag-row--tall-shot">
+              <div class="zigzag-text">
+                <div class="zigzag-kicker">Visual generation</div>
+                <h3>Beautiful carousels and graphics without the design tools</h3>
+                <p>Turn your best posts into branded carousels and quote cards automatically. No Canva. No designer. No extra hour lost to formatting.</p>
+              </div>
+              <div class="zigzag-visual">
+                <div class="shot-frame">
+                  <img src="/images/what-you-get/visual-generation.png" alt="Visual generation screenshot" />
+                </div>
+              </div>
+            </div>
 
-          <div class="features-grid">
-            <article class="feature-card-dark">
-              <span class="feature-card-icon" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="2" y="12" width="4" height="8" rx="2" fill="#10B981" />
-                  <rect x="9" y="6" width="4" height="20" rx="2" fill="#10B981" />
-                  <rect x="16" y="2" width="4" height="28" rx="2" fill="#10B981" />
-                  <rect x="23" y="6" width="4" height="20" rx="2" fill="#10B981" />
-                </svg>
-              </span>
-              <span class="feature-card-name">Voice fingerprint</span>
-              <p class="feature-card-desc">Write like your best self — trained on your real writing.</p>
-            </article>
-            <article class="feature-card-dark">
-              <span class="feature-card-icon" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="16" cy="8" r="3" stroke="#10B981" stroke-width="2.5" fill="none" />
-                  <line x1="16" y1="11" x2="16" y2="28" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                  <path d="M8 18 C8 26 24 26 24 18" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
-                  <line x1="10" y1="14" x2="22" y2="14" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="feature-card-name">Hook archetypes</span>
-              <p class="feature-card-desc">Start strong every time — 8 structures auto-selected for your idea.</p>
-            </article>
-            <article class="feature-card-dark">
-              <span class="feature-card-icon" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M16 3 L28 8 L28 17 C28 23 22 28 16 30 C10 28 4 23 4 17 L4 8 Z"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linejoin="round"
-                  />
-                  <polyline
-                    points="11,16 14,20 21,13"
-                    stroke="#10B981"
-                    stroke-width="2.5"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              <span class="feature-card-name">Quality gate</span>
-              <p class="feature-card-desc">Block weak or generic content before it reaches your feed.</p>
-            </article>
-            <article class="feature-card-dark">
-              <span class="feature-card-icon" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <polyline
-                    points="18,3 10,17 16,17 14,29 22,15 16,15"
-                    fill="#10B981"
-                    stroke="#10B981"
-                    stroke-width="1"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-              <span class="feature-card-name">Idea → post system</span>
-              <p class="feature-card-desc">No prompts, no babysitting — just your thinking, structured.</p>
-            </article>
+            <div class="zigzag-row zigzag-row--tall-shot">
+              <div class="zigzag-text">
+                <div class="zigzag-kicker">Direct publishing</div>
+                <h3>From idea to published in seconds, not hours</h3>
+                <p>Write, refine, and publish directly to LinkedIn from one place. Or schedule up to 30 days ahead. Either way, you're done before you finish your morning coffee.</p>
+              </div>
+              <div class="zigzag-visual">
+                <div class="shot-frame">
+                  <img src="/images/what-you-get/direct-publishing.png" alt="Direct publishing screenshot" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="pricing">
         <div class="container">
-          <span class="section-tag">Simple pricing</span>
-          <h2>One inbound client pays for this for years</h2>
+          <span class="section-tag">Pricing</span>
+          <h2>Start free. Upgrade when you're ready.</h2>
 
           <div class="pricing-grid">
             <div class="pricing-card">
-              <div class="tier-label">Free</div>
+              <div class="tier-label">Free Forever</div>
               <div class="price">$0</div>
-              <div class="price-sub">per month · no credit card</div>
+              <div class="price-sub">No credit card needed.</div>
               <div class="pricing-divider" aria-hidden="true"></div>
-              <div class="pricing-features">
-                3 posts/month<br />
-                See what your thinking could become
+              <ul class="pricing-features-list">
+                <li>3 posts per month</li>
+                <li>Full voice fingerprinting</li>
+                <li>Full quality gate</li>
+                <li>All 8 hook styles</li>
+                <li>Direct LinkedIn publishing</li>
+                <li>3 posts scheduled per month</li>
+                <li>3 carousels, quotes + 1 Vault doc (first month)</li>
+              </ul>
+              <div class="pricing-not-included">
+                <div class="pricing-not-included-title">Not included</div>
+                <ul class="pricing-features-list">
+                  <li>Hook A/B alternatives</li>
+                  <li>Funnel health dashboard</li>
+                  <li>Draft hub &amp; post archive</li>
+                </ul>
               </div>
               <div style="margin-top: 24px">
-                <a href="#" class="btn btn-outlined full-width waitlist-cta">Start free →</a>
+                <a href="#" class="btn btn-outlined full-width waitlist-cta">Start for free</a>
               </div>
             </div>
 
             <div class="pricing-card pricing-card-pro">
-              <span class="founder-badge" data-spots="61">Founding 100, 61 spots left</span>
               <div class="tier-label">Pro</div>
               <div class="price">$49</div>
-              <div class="price-sub">
-                <span class="price-after-launch">$97/month after launch</span><br />
-                <span style="font-size: 12px; color: var(--text-muted)">Locked for life at this price</span>
-              </div>
+              <div class="price-sub">Cancel any time.</div>
               <div class="pricing-divider" aria-hidden="true"></div>
-              <div class="pricing-features">
-                <span class="check">✓</span> Unlimited posts<br />
-                <span class="check">✓</span> Voice fingerprint<br />
-                <span class="check">✓</span> Quality gate<br />
-                <span class="check">✓</span> All hook archetypes
-              </div>
+              <ul class="pricing-features-list">
+                <li>50 posts per month</li>
+                <li>Full voice fingerprinting</li>
+                <li>Full quality gate</li>
+                <li>All 8 hook styles</li>
+                <li>Direct LinkedIn publishing</li>
+                <li>Unlimited scheduling (30 days ahead)</li>
+                <li>10 carousels, quotes</li>
+                <li>10 Vault docs/month</li>
+                <li>Hook A/B alternatives</li>
+                <li>Funnel health dashboard</li>
+                <li>Draft hub &amp; post archive</li>
+              </ul>
               <div style="margin-top: 24px">
-                <a href="#" class="btn btn-primary full-width waitlist-cta">Claim your spot →</a>
+                <a href="#" class="btn btn-primary full-width waitlist-cta">Get Pro</a>
               </div>
             </div>
           </div>
 
-          <div class="pricing-footnote">Ghostwriters charge $2,000+/month for the same outcome. This costs $97.</div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <div class="final-cta-block">
-            <h2>One strong post can change your pipeline. Most consultants never write it</h2>
-            <p>
-              Your next client is already on LinkedIn, reading, evaluating, deciding who they trust. Some posts lead to $20K conversations. Most don't.
-            </p>
-            <a href="#" class="btn btn-primary waitlist-cta">Turn your next idea into a $10K conversation →</a>
+          <div class="founding-offer">
+            <strong>Founding member offer (10 spots only)</strong>
+            <p>The first 10 members get full Pro access at $29/month, locked for life. By personal invitation only. Closes once all 10 spots are filled.</p>
           </div>
         </div>
       </section>
-    </main>
 
-    <footer class="site-footer">
-      <div class="wrap">
-        <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
-        <span class="sep" aria-hidden="true">·</span>
-        <span>© 2025 Scouthook</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/#features">Features</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/#pricing">Pricing</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/contact">Contact</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/privacy">Privacy Policy</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/terms">Terms of Service</a>
-        <span class="sep" aria-hidden="true">·</span>
-        <a href="/refund">Refund Policy</a>
-      </div>
-    </footer>
+      <section class="section-faq">
+        <div class="container">
+          <span class="section-tag">FAQ</span>
+          <h2>Questions people ask before signing up</h2>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>
+                <span>Will my posts actually sound like me or like generic AI?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                Scouthook is built around your knowledge and ideas, not templates. The hook, angle, and story are shaped from what you actually know, not from a generic prompt. The quality score also blocks AI-sounding language before you see the post. Most users feel the difference on their very first post.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>What if I don't know what to post about?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                That's exactly what the Idea Vault is for. Upload any document — a report, a presentation, an article you wrote — and Scouthook mines it for post-worthy insights. You'll never stare at a blank page again.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>How is this different from ChatGPT or other AI tools?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                Generic AI tools generate content. Scouthook shapes your specific knowledge into posts by identifying the right hook, angle, and narrative for your idea. Then it scores the output before you see it. No other tool does both.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>How long does it take to get started?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                Under two minutes. Sign up, type your first thought or upload a document, and Scouthook does the rest. No lengthy onboarding. No complicated setup.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Is there a free plan?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                Yes, 3 posts per month, full quality scoring, and access to the Idea Vault in your first month. No credit card required to start.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Can I publish directly to LinkedIn?</span>
+                <span class="faq-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-body">
+                Yes. Connect your LinkedIn account once via secure OAuth and publish or schedule directly from Scouthook.
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-final-cta">
+        <div class="container">
+          <div class="final-cta-block">
+            <h2>Your next client is one post away</h2>
+            <p>
+              Stop sitting on your best ideas. Start turning them into LinkedIn posts that get noticed and get you hired.
+            </p>
+            <a href="#" class="btn btn-primary waitlist-cta">Get early access</a>
+            <div class="pricing-footnote" style="margin-top: 14px">Free to start. No credit card required.</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="wrap">
+          <a class="logo logo--footer" href="/" aria-label="Scouthook home"><img src="/images/logo-light.png" alt="" /></a>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>© 2025 Scouthook</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/#features">Features</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/#pricing">Pricing</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/contact.html">Contact</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/privacy">Privacy Policy</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/terms">Terms of Service</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="/refund">Refund Policy</a>
+        </div>
+      </footer>
+    </main>
 
     <div
       id="waitlist-backdrop"
@@ -1783,15 +1971,6 @@
         </div>
       </div>
     </div>
-
-    <script>
-      window.addEventListener("scroll", () => {
-        const nav = document.getElementById("site-nav");
-        if (!nav) return;
-        if (window.scrollY > 60) nav.classList.add("nav-scrolled");
-        else nav.classList.remove("nav-scrolled");
-      });
-    </script>
 
     <script>
       (function () {
